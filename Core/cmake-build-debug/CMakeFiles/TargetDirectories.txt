@@ -1,0 +1,3 @@
+C:/Users/ztr53/Documents/GitHub/space-bar/Core/cmake-build-debug/CMakeFiles/Core.dir
+C:/Users/ztr53/Documents/GitHub/space-bar/Core/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ztr53/Documents/GitHub/space-bar/Core/cmake-build-debug/CMakeFiles/rebuild_cache.dir

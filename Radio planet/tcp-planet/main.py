@@ -1,14 +1,11 @@
-import multiprocessing
-import os
+import subprocess
 
 import cv2
 import pygame
-from pygame import mixer
 
 from resources.utils import *
 from tcp_client import *
 from xml_handling import *
-import subprocess
 
 # initialize game window
 pygame.init()
@@ -164,6 +161,14 @@ def template_options(nr_options, textq, *options, selected_index=0):
 
 
 start_music = 0
+
+
+def write_to_next_planet_file():
+    with open("../../Core/current_planet.txt", "w") as f:
+        # f.truncate()
+        f.write(str(0))
+
+
 if __name__ == '__main__':
     subprocess.Popen("../tcp-server/main.exe", creationflags=subprocess.DETACHED_PROCESS, close_fds=True)
     running = True
@@ -179,15 +184,11 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            # if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-            #     radio_animation()
             if event.type == pygame.MOUSEMOTION:
                 selected_index = set_selected_index(nr_options)
             if event.type == pygame.USEREVENT:
-                # mixer.music.load("resources/voyagespaceambientmusic.mp3")
-                # mixer.music.play(-1, start_music)
-                # pygame.mixer.music.set_pos(current_music_pos / 1000)
-                background_music.unpause()
+                pass
+                # background_music.unpause()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT_CLICK:
                 selected_index = set_selected_index(nr_options)
                 indexes = (i for i in range(1, nr_options + 1))
@@ -197,10 +198,11 @@ if __name__ == '__main__':
                     clock = pygame.time.Clock()
                     success, video_image = video.read()
                     if success:
-                        background_music.pause()
-                        radiosoundeffect_music.play(pygame.mixer.Sound("resources/radiosoundeffectshorter.mp3"), loops=0,
-                                                    fade_ms=5000)
+                        # background_music.pause()
+                        radiosoundeffect_music.play(pygame.mixer.Sound("resources/radiosoundeffectshorter.mp3"),
+                                                    loops=0)
                         radiosoundeffect_music.set_endevent(pygame.USEREVENT)
+                        radiosoundeffect_music.set_volume(1.0)
 
                         video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
                         screen.blit(video_surf, (0, 0))
@@ -213,9 +215,17 @@ if __name__ == '__main__':
                     if qid != 0:
                         question, options, option_ids = get_data_by_qid(qid)
                         nr_options = len(options)
-        success, video_image = video.read()
-        if success:
-            video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
-            screen.blit(video_surf, (0, 0))
-        pygame.display.update()
-    pygame.quit()
+                    else:
+                        background_music.stop()
+                        radiosoundeffect_music.stop()
+                        write_to_next_planet_file()
+                        pygame.quit()
+                        running = False
+                        break
+        if running:
+            success, video_image = video.read()
+            if success:
+                video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
+                screen.blit(video_surf, (0, 0))
+            pygame.display.update()
+    # pygame.quit()
