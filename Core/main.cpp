@@ -14,7 +14,7 @@ void hardcode_planets()
     planets.insert(std::pair<int, std::string>(3, "..\\..\\Planet\\planet.exe"));
     planets.insert(std::pair<int, std::string>(4, "..\\..\\BlackHole\\blackhole.exe"));
     planets.insert(std::pair<int, std::string>(5, "..\\..\\Earth\\earth.exe"));
-    planets.insert(std::pair<int, std::string>(6, "..\\..\\Credits\\credits.exe"));
+    planets.insert(std::pair<int, std::string>(6, "..\\..\\EndCredits\\EndCredits.jar"));
 
     std::string empty;
     working_directories.insert(std::pair<int, std::string>(0, empty));
@@ -23,7 +23,7 @@ void hardcode_planets()
     working_directories.insert(std::pair<int, std::string>(3, "..\\..\\Planet"));
     working_directories.insert(std::pair<int, std::string>(4, "..\\..\\BlackHole"));
     working_directories.insert(std::pair<int, std::string>(5, "..\\..\\Earth"));
-    working_directories.insert(std::pair<int, std::string>(6, "..\\..\\Credits"));
+    working_directories.insert(std::pair<int, std::string>(6, empty));
 }
 std::string get_planet_path(int id)
 {
@@ -38,11 +38,8 @@ int read_planet_id()
     int planet = -2;
     std::ifstream fin;
     fin.open("../current_planet.txt");
-//    if (fin.is_open())
-//    {
     fin >> planet;
     fin.close();
-//    }
     return planet;
 }
 void start_planet(int id)
