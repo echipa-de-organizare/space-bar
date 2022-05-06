@@ -3,6 +3,7 @@ import os
 
 import cv2
 import pygame
+from pygame import mixer
 
 from resources.utils import *
 from tcp_client import *
@@ -16,10 +17,15 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Radio tcp planet")
 pygame.display.set_icon(pygame.image.load("resources/radio.png"))
 
-
 # background space music
-# mixer.music.load("resources/bg.mp3")
+background_music = pygame.mixer.Channel(0)
+radiosoundeffect_music = pygame.mixer.Channel(1)
+background_music.play(pygame.mixer.Sound("resources/voyagespaceambientmusic.mp3"), loops=-1, fade_ms=5000)
+
+
+# mixer.music.load("resources/voyagespaceambientmusic.mp3")
 # mixer.music.play(-1)
+# current_music_pos = pygame.mixer.music.get_pos()
 
 
 def place_radio():
@@ -157,6 +163,7 @@ def template_options(nr_options, textq, *options, selected_index=0):
             draw_text(options[4], nr_options, index=5)
 
 
+start_music = 0
 if __name__ == '__main__':
     subprocess.Popen("../tcp-server/main.exe", creationflags=subprocess.DETACHED_PROCESS, close_fds=True)
     running = True
@@ -176,6 +183,11 @@ if __name__ == '__main__':
             #     radio_animation()
             if event.type == pygame.MOUSEMOTION:
                 selected_index = set_selected_index(nr_options)
+            if event.type == pygame.USEREVENT:
+                # mixer.music.load("resources/voyagespaceambientmusic.mp3")
+                # mixer.music.play(-1, start_music)
+                # pygame.mixer.music.set_pos(current_music_pos / 1000)
+                background_music.unpause()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT_CLICK:
                 selected_index = set_selected_index(nr_options)
                 indexes = (i for i in range(1, nr_options + 1))
@@ -185,6 +197,11 @@ if __name__ == '__main__':
                     clock = pygame.time.Clock()
                     success, video_image = video.read()
                     if success:
+                        background_music.pause()
+                        radiosoundeffect_music.play(pygame.mixer.Sound("resources/radiosoundeffectshorter.mp3"), loops=0,
+                                                    fade_ms=5000)
+                        radiosoundeffect_music.set_endevent(pygame.USEREVENT)
+
                         video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
                         screen.blit(video_surf, (0, 0))
 
