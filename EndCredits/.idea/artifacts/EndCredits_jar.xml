@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EndCredits:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EndCredits_jar</output-path>
+    <root id="archive" name="EndCredits.jar">
+      <element id="module-output" name="EndCredits" />
+    </root>
+  </artifact>
+</component>
