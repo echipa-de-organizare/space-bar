@@ -1,4 +1,5 @@
 import subprocess
+from math import ceil
 
 import cv2
 import pygame
@@ -27,11 +28,20 @@ background_music.play(pygame.mixer.Sound("resources/voyagespaceambientmusic.mp3"
 
 def place_radio():
     radio = pygame.image.load("resources/radio.png")
-    # radio = pygame.transform.scale(radio, (1200, 800))
+    x, y = screen.get_size()
+    '''
+    460*100/1080=x ====> 42.59 under radio
+    
+    50*100/460=x =====> text padding 10.8695
+    '''
+    # print(ceil(0.4259259 * y))
+    # print(x, y)
+    radio = pygame.transform.scale(radio, (x, y))
     screen.blit(radio, (0, 0))
 
 
 # # opencv2
+x, y = screen.get_size()
 video = cv2.VideoCapture("resources/radio.mp4")
 fps = video.get(cv2.CAP_PROP_FPS)
 clock = pygame.time.Clock()
@@ -68,10 +78,16 @@ q1
             -o2
             -o3
 '''
-
-upper_limit_options = 460
+# under_radio = 460
+# x, y = screen.get_size()
+under_radio = ceil(0.4259259 * y)
+upper_limit_options = ceil(0.4259259 * y)
+text_padding = ceil(0.108695 * y)
 # 460//2,3,4,5,6
-hardcoded_sizes = {5: 75, 4: 93, 3: 100, 2: 100, 1: 100}
+# hardcoded_sizes = {5: 75, 4: 93, 3: 100, 2: 100, 1: 100}
+# 100*100/460=x ======> 21.7391
+hardcoded_sizes = {5: ceil(under_radio / 6), 4: ceil(under_radio / 5), 3: ceil(0.217391 * under_radio),
+                   2: ceil(0.217391 * under_radio), 1: ceil(0.217391 * under_radio)}
 
 
 def set_selected_index(nr_options):
@@ -90,14 +106,17 @@ def draw_option_text(text, nr_options):
     font = pygame.font.SysFont("Helvetica", 30)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
-    surf_height = text.get_size()[1] + 50
+    # surf_height = text.get_size()[1]
+    surf_height = hardcoded_sizes[nr_options]
     surface = pygame.Surface((w, surf_height))
     surface.fill(DARK2)
     surface.set_alpha(200)
-    screen.blit(surface, (0, h - 460))
-    screen.blit(text, (50, h - 460 + surf_height // 4))
+    global under_radio
+    screen.blit(surface, (0, h - under_radio))
+
+    screen.blit(text, (50, h - under_radio + surf_height // 4))
     global upper_limit_options
-    upper_limit_options = 460 - surf_height
+    upper_limit_options = under_radio - surf_height
 
 
 def draw_text(text, nr_options, index=1):
@@ -111,7 +130,7 @@ def draw_text(text, nr_options, index=1):
     global upper_limit_options
     screen.blit(surface, (0, h - upper_limit_options + (index - 1) * hardcoded_sizes[nr_options]))
     screen.blit(text, (100, h - upper_limit_options + (index - 1) * hardcoded_sizes[nr_options] +
-                       hardcoded_sizes[nr_options] // 3))
+                       hardcoded_sizes[nr_options] // 4))
 
 
 def draw_text_selected(text, nr_options, index=1):
@@ -126,7 +145,7 @@ def draw_text_selected(text, nr_options, index=1):
     global upper_limit_options
     screen.blit(surface, (0, h - upper_limit_options + (index - 1) * hardcoded_sizes[nr_options]))
     screen.blit(text, (100, h - upper_limit_options + (index - 1) * hardcoded_sizes[nr_options] +
-                       hardcoded_sizes[nr_options] // 3))
+                       hardcoded_sizes[nr_options] // 4))
 
 
 def template_options(nr_options, textq, *options, selected_index=0):
@@ -196,6 +215,7 @@ if __name__ == '__main__':
                     video = cv2.VideoCapture("resources/radio.mp4")
                     fps = video.get(cv2.CAP_PROP_FPS)
                     clock = pygame.time.Clock()
+
                     success, video_image = video.read()
                     if success:
                         # background_music.pause()
@@ -205,6 +225,8 @@ if __name__ == '__main__':
                         radiosoundeffect_music.set_volume(1.0)
 
                         video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
+                        x, y = screen.get_size()
+                        video_surf = pygame.transform.scale(video_surf, (x, y))
                         screen.blit(video_surf, (0, 0))
 
                     sock = create_connection()
@@ -226,6 +248,8 @@ if __name__ == '__main__':
             success, video_image = video.read()
             if success:
                 video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
+                x, y = screen.get_size()
+                video_surf = pygame.transform.scale(video_surf, (x, y))
                 screen.blit(video_surf, (0, 0))
             pygame.display.update()
     # pygame.quit()
