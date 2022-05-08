@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8">
+<story>
+    <!--poti schimba serverul sa ia intrebarea pentru fiecare raspuns din alt fisier-->
+    <!--si atunci am rezolvat si cu mersul inapoi -->
+    <question id="100" text="Bep bop bep bop...">
+        <option id="101" text="[Turn on Radio]">
+            <question id="110" text="Uryyb. Guvf vf na nhgbzngvpnyyl frag qvfgerff zrffntr. Vs lbh pbcl, cyrnfr erfcbaq. \n Uryyb. Guvf vf na nhgbzngvpnyyl fraq qvfge...">
+                <option id="111" text="Hello! Anyone there? Do you speak English?">
+                    <question id="120" text="Hello! Xnzrzoreg, fbzrbar nafjrerq! Tb oevat n genafyngbe dhvpx! Hold on!">
+                        <option id="121" text="I can't understand you.">blank</option>
+                            <question id="130" text="Hello. Can you hear us?">
+                                <option id = "131" text="I can hear you. Where are you?"></option>
+                                <option id = "132" text=""
+                            </question>
+                        <option id="102" text="[Leave]">blank</option>
+                        <option id="103" text="[]">blank</option>
+                    </question>
+                </option>
+                <option id="112" text="I was sent here by Oevr. He told me about this radio.">blank</option>
+                    <question id = "120" text="Hello! Xnzrzoreg, fbzrbar nafjrerq! Tb oevat n genafyngbe dhvpx!">
+                <option id="113" text="do you know anybody named gadbuy?">blank</option>
+            </question>
+        </option>
+        <option id="102" text="[Leave]">blank</option>
+        <option id="103" text="[]">blank</option>
+    </question>
+</story>
+
+<!--toadd: gadbuy -->
+
+
