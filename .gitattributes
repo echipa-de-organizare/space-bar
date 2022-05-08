@@ -1,0 +1,4 @@
+.fla filter=lfs diff=lfs merge=lfs -text
+.swf filter=lfs diff=lfs merge=lfs -text
+Travel[[:space:]]Environment/Travel.fla filter=lfs diff=lfs merge=lfs -text
+Travel[[:space:]]Environment/Travel.swf filter=lfs diff=lfs merge=lfs -text
