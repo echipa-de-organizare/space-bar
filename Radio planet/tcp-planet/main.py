@@ -1,4 +1,5 @@
 import subprocess
+import timeit
 from math import ceil
 
 import cv2
@@ -20,10 +21,27 @@ background_music = pygame.mixer.Channel(0)
 radiosoundeffect_music = pygame.mixer.Channel(1)
 background_music.play(pygame.mixer.Sound("resources/voyagespaceambientmusic.mp3"), loops=-1, fade_ms=5000)
 
-
 # mixer.music.load("resources/voyagespaceambientmusic.mp3")
 # mixer.music.play(-1)
 # current_music_pos = pygame.mixer.music.get_pos()
+
+global_seconds = 0
+local_start = 0
+local_end = 0
+
+
+def read_seconds():
+    global global_seconds
+    with open("../../Core/time_reset.txt", "r") as f:
+        global_seconds = int(f.readline().strip())
+
+
+def write_seconds():
+    global global_seconds, local_start, local_end
+    new_seconds = global_seconds + local_end - local_start
+    with open("../../Core/time_reset.txt", "w") as f:
+        f.truncate()
+        f.write(str(int(new_seconds)))
 
 
 def place_radio():
@@ -185,7 +203,40 @@ start_music = 0
 def write_to_next_planet_file():
     with open("../../Core/current_planet.txt", "w") as f:
         # f.truncate()
-        f.write(str(0))
+        f.write(str(1))
+
+
+# Time Info
+Time = 0
+current_minute = 9
+current_second = 7
+
+counter = 0
+
+
+def set_clock(global_seconds):
+    global current_minute, current_second
+    new_sec = (global_seconds + current_second) % 60
+    new_min = current_minute + (global_seconds + current_second) // 60
+    current_second = new_sec
+    current_minute = new_min
+
+
+def draw_clock():
+    pygame.font.init()
+    font = pygame.font.SysFont("Trebuchet MS", 25)
+    day_text = font.render("Date: 19 January 2038", True, WHITE)
+    hour_text = font.render("Time: 03", True, WHITE)  # zero-pad hours to 2 digits
+    minute_text = font.render(":{0:02}".format(current_minute), True, WHITE)  # zero-pad minutes to 2 digits
+    second_text = font.render(":{0:02}".format(current_second), True, WHITE)  # zero-pad minutes to 2 digits
+    day_placement = (50, 50)
+    hour_placement = (day_placement[0], day_placement[1] + day_text.get_size()[1])
+    minute_placement = (hour_placement[0] + hour_text.get_size()[0], hour_placement[1])
+    second_placement = (minute_placement[0] + second_text.get_size()[0], minute_placement[1])
+    screen.blit(day_text, day_placement)
+    screen.blit(hour_text, hour_placement)
+    screen.blit(minute_text, minute_placement)
+    screen.blit(second_text, second_placement)
 
 
 if __name__ == '__main__':
@@ -195,6 +246,16 @@ if __name__ == '__main__':
     qid = 100
     question, options, option_ids = get_data_by_qid(qid)
     nr_options = len(options)
+    # global global_seconds, local_start, local_end
+    read_seconds()
+    pygame.time.set_timer(pygame.USEREVENT, (300 - global_seconds) * 1000)
+
+    Clock = pygame.time.Clock()
+    CLOCKTICK = pygame.USEREVENT + 1
+    pygame.time.set_timer(CLOCKTICK, 1000)
+    set_clock(global_seconds)
+
+    local_start = timeit.default_timer()
     while running:
         if qid != 0:
             # print(options)
@@ -205,9 +266,20 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.MOUSEMOTION:
                 selected_index = set_selected_index(nr_options)
+            if event.type == CLOCKTICK:
+                current_second = current_second + 1
+                if current_second == 60:
+                    current_second = 0
+                    current_minute = current_minute + 1
             if event.type == pygame.USEREVENT:
-                pass
-                # background_music.unpause()
+                background_music.stop()
+                radiosoundeffect_music.stop()
+                write_to_next_planet_file()
+                local_end = local_start - global_seconds
+                write_seconds()
+                pygame.quit()
+                running = False
+                break
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT_CLICK:
                 selected_index = set_selected_index(nr_options)
                 indexes = (i for i in range(1, nr_options + 1))
@@ -218,10 +290,8 @@ if __name__ == '__main__':
 
                     success, video_image = video.read()
                     if success:
-                        # background_music.pause()
                         radiosoundeffect_music.play(pygame.mixer.Sound("resources/radiosoundeffectshorter.mp3"),
                                                     loops=0)
-                        radiosoundeffect_music.set_endevent(pygame.USEREVENT)
                         radiosoundeffect_music.set_volume(1.0)
 
                         video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
@@ -241,6 +311,8 @@ if __name__ == '__main__':
                         background_music.stop()
                         radiosoundeffect_music.stop()
                         write_to_next_planet_file()
+                        local_end = timeit.default_timer()
+                        write_seconds()
                         pygame.quit()
                         running = False
                         break
@@ -251,5 +323,6 @@ if __name__ == '__main__':
                 x, y = screen.get_size()
                 video_surf = pygame.transform.scale(video_surf, (x, y))
                 screen.blit(video_surf, (0, 0))
+            draw_clock()
             pygame.display.update()
     # pygame.quit()
