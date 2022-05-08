@@ -1,3 +1,4 @@
+import os
 import subprocess
 import timeit
 from math import ceil
@@ -28,18 +29,21 @@ background_music.play(pygame.mixer.Sound("resources/voyagespaceambientmusic.mp3"
 global_seconds = 0
 local_start = 0
 local_end = 0
+spacebarlogT = os.path.expanduser("~\\Documents\\spacebarlogT.txt")
+spacebarlogP= os.path.expanduser("~\\Documents\\spacebarlogP.txt")
 
 
 def read_seconds():
     global global_seconds
-    with open("../../Core/time_reset.txt", "r") as f:
+    # with open("../../Core/time_reset.txt", "r") as f:
+    with open(spacebarlogT, "r") as f:
         global_seconds = int(f.readline().strip())
 
 
 def write_seconds():
     global global_seconds, local_start, local_end
     new_seconds = global_seconds + local_end - local_start
-    with open("../../Core/time_reset.txt", "w") as f:
+    with open(spacebarlogT, "w") as f:
         f.truncate()
         f.write(str(int(new_seconds)))
 
@@ -201,7 +205,7 @@ start_music = 0
 
 
 def write_to_next_planet_file():
-    with open("../../Core/current_planet.txt", "w") as f:
+    with open(spacebarlogP, "w") as f:
         # f.truncate()
         f.write(str(1))
 

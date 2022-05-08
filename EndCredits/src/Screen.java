@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,12 +59,12 @@ public class Screen extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 //        System.out.println(textY);
 //        textY -= 5;
-        textY -= 8;
+        textY -= 6;
         if (textY < -650) {
             creditTimer.stop();
             BufferedWriter writer;
             try {
-                writer = new BufferedWriter(new FileWriter("../current_planet.txt"));//path relative to core exe!!!
+                writer = new BufferedWriter(new FileWriter(FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\spacebarlogP.txt"));
                 writer.write("1");
                 writer.close();
             } catch (IOException ex) {
