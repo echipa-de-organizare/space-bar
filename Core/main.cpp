@@ -103,6 +103,16 @@ int read_state()
     fin.close();
     return state;
 }
+void reset_planet_id()
+{
+    std::ifstream fin(spacebarlogP);
+    if (fin.good())
+    {
+        std::ofstream fout(spacebarlogP);
+        fout << 1;
+        fout.close();
+    }
+}
 void start_planet(int id)
 {
     ShellExecute(nullptr, "open", get_planet_path(id).c_str(), nullptr, get_dir_path(id).c_str(), SW_SHOWDEFAULT);
@@ -125,6 +135,7 @@ int main()
         if (id == -1)
         {
             std::cout << "lalal";
+            reset_planet_id();
             break;
         }
         if (state != 2)
