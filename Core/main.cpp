@@ -19,12 +19,12 @@ void handle_files()
     spacebarlogL += "\\spacebarlogL.txt";
     //time
     std::ifstream fin(spacebarlogT);
-//    if (!fin.good())
-//    {
-    std::ofstream fout(spacebarlogT);
-    fout << 0;
-    fout.close();
-//    }
+    if (!fin.good())
+    {
+        std::ofstream fout(spacebarlogT);
+        fout << 0;
+        fout.close();
+    }
 
     //planet
     fin.open(spacebarlogP);
