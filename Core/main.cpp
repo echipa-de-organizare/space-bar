@@ -21,6 +21,7 @@ void handle_files()
     std::ifstream fin(spacebarlogT);
     if (!fin.good())
     {
+        std::cout << "lala";
         std::ofstream fout(spacebarlogT);
         fout << 0;
         fout.close();
@@ -115,7 +116,7 @@ int main()
 
     hardcode_planets();
     next_planet_id = read_planet_id();
-    reset_time();
+//    reset_time();
     start_planet(next_planet_id);
     while (true)
     {
