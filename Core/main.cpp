@@ -21,34 +21,34 @@ void handle_files()
     std::ifstream fin(spacebarlogT);
     if (!fin.good())
     {
-        std::cout << "lala";
         std::ofstream fout(spacebarlogT);
         fout << 0;
         fout.close();
     }
 
     //planet
-    fin.open(spacebarlogP);
-    if (!fin.good())
+    std::ifstream fin2(spacebarlogP);
+    if (!fin2.good())
     {
         std::ofstream fout(spacebarlogP);
         fout << 1;
         fout.close();
     }
     //state
-    fin.open(spacebarlogS);
-    if (!fin.good())
+    std::ifstream fin3(spacebarlogS);
+    if (!fin3.good())
     {
         std::ofstream fout(spacebarlogS);
         fout << 0;
         fout.close();
     }
     //location
-    fin.open(spacebarlogL);
-    if (!fin.good())
+    std::ifstream fin4(spacebarlogL);
+    if (!fin4.good())
     {
+//        std::cout << "lala";
         std::ofstream fout(spacebarlogL);
-        fout << "0 0";
+        fout << "0\n0";
         fout.close();
     }
 
