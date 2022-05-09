@@ -30,7 +30,8 @@ global_seconds = 0
 local_start = 0
 local_end = 0
 spacebarlogT = os.path.expanduser("~\\Documents\\spacebarlogT.txt")
-spacebarlogP= os.path.expanduser("~\\Documents\\spacebarlogP.txt")
+spacebarlogP = os.path.expanduser("~\\Documents\\spacebarlogP.txt")
+spacebarlogS = os.path.expanduser("~\\Documents\\spacebarlogS.txt")
 
 
 def read_seconds():
@@ -46,6 +47,12 @@ def write_seconds():
     with open(spacebarlogT, "w") as f:
         f.truncate()
         f.write(str(int(new_seconds)))
+
+
+def write_state(state):
+    with open(spacebarlogS, "w") as f:
+        f.truncate()
+        f.write(str(state))
 
 
 def place_radio():
@@ -281,6 +288,7 @@ if __name__ == '__main__':
                 write_to_next_planet_file()
                 local_end = local_start - global_seconds
                 write_seconds()
+                write_state(2)
                 pygame.quit()
                 running = False
                 break
@@ -317,6 +325,7 @@ if __name__ == '__main__':
                         write_to_next_planet_file()
                         local_end = timeit.default_timer()
                         write_seconds()
+                        write_state(1)
                         pygame.quit()
                         running = False
                         break
