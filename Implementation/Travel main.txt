@@ -1,0 +1,618 @@
+import flash.events.MouseEvent;
+import flash.display.MovieClip;
+import flash.display.Graphics;
+import flash.filesystem.FileMode;
+import flash.filesystem.FileStream;
+import flash.filesystem.File;
+import flash.desktop.NativeApplication;
+
+stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+
+spacebg.x = 0;
+spacebg.y = 0;
+
+//vehicle.x = 960;
+//vehicle.y = 540;
+vehicle.rotation = 30;
+guy.rotation = 90;
+
+var middleX = 960;
+var middleY = 540;
+
+var parallax: Number = 0.3;
+var vehicleSpeed: Number = 12;
+var guySpeed: Number = 2;
+
+var insideCar: Boolean = false;
+
+guy.gotoAndStop(1);
+guy.visible = true;
+guy.x = 300;
+guy.y = 900;
+vehicle.x = guy.x + 160;
+vehicle.y = guy.y - 60;
+
+//vehicle.x = 100;
+//vehicle.y = 100;
+
+vehicle.gotoAndStop(98);
+
+var targetSpeed: Number = 0;
+var currentSpeed: Number = 0;
+
+var rotationInertia: Number = 0;
+var currentAngle: Number = 90;
+var targetAngle: Number = 90;
+
+var forwardOn: Boolean = false;
+var leftOn: Boolean = false;
+var rightOn: Boolean = false;
+var backOn: Boolean = false;
+
+spacePhone.x = 2050;
+var onPhone: Boolean = false;
+var location: String = "none";
+
+var secondsElapsed: int;
+var currentTime: Number;
+readHour();
+secondsElapsed -= 1;
+
+checkIntro();
+
+var shipCalled: Boolean = false;
+
+popupenv.gotoAndStop(1);
+
+spacebar.x = 1100;
+spacebar.y = 500;
+
+spaceradio.x = 16547;
+spaceradio.y = -11266;
+
+spaceorb.x = -6969;
+spaceorb.y = -6969;
+
+//spacebh.x = 10000;
+//spacebh.y = 10000;
+
+setPosition();
+
+function mainFun(e: Event) {
+	handleTime();
+	if (insideCar) { //inside car
+		gCompass.visible = true;
+		gCompass.gTarget.rotation = -targetAngle - 180;
+		gCompass.gDirection.rotation = vehicle.rotation - 90;
+		gCompass.gExtra.rotation += gCompass.gTarget.rotation - gCompass.gDirection.rotation;
+		throttle.visible = true;
+		if (targetSpeed > 0 && throttle.currentFrame == 1) {
+			throttle.gotoAndPlay(2);
+		}
+		if (targetSpeed < 1 && throttle.currentFrame == 15) {
+			throttle.gotoAndPlay(16);
+		}
+
+		if (rotationInertia >= 8) {
+			rotationInertia = 8;
+		}
+		if (rotationInertia <= -8) {
+			rotationInertia = -8;
+		}
+		if (targetAngle >= 360) {
+			targetAngle %= 360;
+			currentAngle %= 360;
+		}
+		if (targetAngle <= 0) {
+			targetAngle = targetAngle % 360 + 360;
+			currentAngle = currentAngle % 360 + 360;
+		}
+
+		vehicle.x = (vehicle.x * 3 + (middleX + 710 * Math.sin((targetAngle - 180) * Math.PI / 180))) / 4;
+		vehicle.y = (vehicle.y * 3 + (middleY + 300 * Math.cos((targetAngle - 180) * Math.PI / 180))) / 4;
+
+		vehicle.rotation = -currentAngle - 90;
+
+		if (Math.abs(rotationInertia) <= 1) {
+			rotationInertia = 0;
+			if (Math.abs(currentAngle - targetAngle) >= 3) {
+				if (Math.abs(currentAngle + 360 - targetAngle) < Math.abs(currentAngle - targetAngle)) {
+					currentAngle += 360;
+				}
+				if (Math.abs(currentAngle - 360 - targetAngle) < Math.abs(currentAngle - targetAngle)) {
+					currentAngle -= 360;
+				}
+				currentAngle = (4 * currentAngle + targetAngle) / 5;
+			} else {
+				currentAngle = targetAngle;
+			}
+		} else {
+			currentAngle += rotationInertia;
+			rotationInertia *= 0.9;
+		}
+
+		currentSpeed = (4 * currentSpeed + targetSpeed) / 5;
+
+		if (forwardOn) {
+			targetSpeed = vehicleSpeed;
+		} else {
+			targetSpeed = 0;
+		}
+		if (leftOn) {
+			targetAngle += 4;
+			rotationInertia += 2.6;
+		}
+		if (rightOn) {
+			targetAngle -= 4;
+			rotationInertia -= 2.6;
+		}
+		if (backOn) {
+			rotationInertia *= 0.8;
+		}
+	} else { //outside car
+		gCompass.visible = false;
+		throttle.visible = false;
+
+		if (rotationInertia >= 8) {
+			rotationInertia = 8;
+		}
+		if (rotationInertia <= -8) {
+			rotationInertia = -8;
+		}
+		if (currentAngle >= 360) {
+			currentAngle %= 360;
+		}
+		if (currentAngle <= 0) {
+			currentAngle = currentAngle % 360 + 360;
+		}
+		guy.rotation = -currentAngle - 90;
+
+		if (Math.abs(rotationInertia) <= 0.5) {
+			rotationInertia = 0;
+		} else {
+			currentAngle += rotationInertia;
+			rotationInertia *= 0.99;
+		}
+
+		currentSpeed = (4 * currentSpeed + targetSpeed) / 5;
+		//spacebg.x += currentSpeed * parallax * Math.sin((currentAngle + 90) * Math.PI / 180);
+		//spacebg.y += currentSpeed * parallax * Math.cos((currentAngle + 90) * Math.PI / 180);
+		//vehicle.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		//vehicle.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+
+		if (forwardOn) {
+			targetSpeed = guySpeed;
+		} else {
+			targetSpeed = 0;
+		}
+		if (leftOn) {
+			rotationInertia += 2.6;
+		}
+		if (rightOn) {
+			rotationInertia -= 2.6;
+		}
+		if (backOn) {
+			rotationInertia *= 0.5;
+		}
+		if (forwardOn || rightOn || backOn || leftOn) {
+			guy.gotoAndStop(2);
+		} else {
+			guy.gotoAndStop(1);
+		}
+	}
+
+	if (onPhone) {
+		spacePhone.x = (spacePhone.x * 7 + 1720) / 8;
+	} else {
+		spacePhone.x = (spacePhone.x * 7 + 2050) / 8;
+	}
+	if (insideCar && currentSpeed > 1) {
+		var cf: int = spacePhone.currentFrame;
+		if (cf == 1 || cf == 3 || cf == 4 || cf == 5 || cf == 6 || cf == 7 || cf == 9 || cf == 11) {
+			spacePhone.popup.visible = true;
+		}
+	} else {
+		spacePhone.popup.visible = false;
+	}
+
+	if (insideCar) {
+		spacebg.x += currentSpeed * parallax * Math.sin((currentAngle - 180) * Math.PI / 180);
+		spacebg.y += currentSpeed * parallax * Math.cos((currentAngle - 180) * Math.PI / 180);
+		spacebar.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		spacebar.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
+		spaceradio.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		spaceradio.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
+		spaceorb.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		spaceorb.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
+		spacebh.x += currentSpeed * parallax * Math.sin((currentAngle - 180) * Math.PI / 180);
+		spacebh.y += currentSpeed * parallax * Math.cos((currentAngle - 180) * Math.PI / 180);
+	} else {
+		spacebg.x += currentSpeed * parallax * Math.sin((currentAngle + 90) * Math.PI / 180);
+		spacebg.y += currentSpeed * parallax * Math.cos((currentAngle + 90) * Math.PI / 180);
+		vehicle.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		vehicle.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		spacebar.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		spacebar.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		spaceradio.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		spaceradio.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		spaceorb.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		spaceorb.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		spacebh.x += currentSpeed * parallax * Math.sin((currentAngle + 90) * Math.PI / 180);
+		spacebh.y += currentSpeed * parallax * Math.cos((currentAngle + 90) * Math.PI / 180);
+	}
+
+	if (Math.sqrt((guy.x - vehicle.x) * (guy.x - vehicle.x) + (guy.y - vehicle.y) * (guy.y - vehicle.y)) <= 200 || insideCar == true) {
+		shipCalled = false;
+	}
+
+	if (shipCalled) {
+		vehicle.rotation = Math.atan2(vehicle.y - guy.y, vehicle.x - guy.x) / Math.PI * 180;
+		vehicle.x -= vehicleSpeed * 1 * Math.sin((vehicle.rotation + 90) * Math.PI / 180);;
+		vehicle.y += vehicleSpeed * 1 * Math.cos((vehicle.rotation + 90) * Math.PI / 180);
+	}
+
+	try {
+		if (insideCar == false){
+			spacePhone.shipDistance.text = Math.sqrt((guy.x - vehicle.x) * (guy.x - vehicle.x) + (guy.y - vehicle.y) * (guy.y - vehicle.y));
+		} else {
+			spacePhone.shipDistance.text = "00.00";
+		}
+		} catch (e: Error) {
+		1;
+	}
+
+	try {
+		if (location == "bar"){
+			if (insideCar){
+				spacePhone.locationX.text = "X: " + int(vehicle.x - spacebar.x);
+				spacePhone.locationY.text = "Y: " + int(vehicle.y - spacebar.y);
+				spacePhone.locationR.text = "α:" + int((-1 * vehicle.rotation + 180) % 360) + "°";
+			} else {
+				spacePhone.locationX.text = "X: " + int(guy.x - spacebar.x);
+				spacePhone.locationY.text = "Y: " + int(guy.y - spacebar.y);
+				spacePhone.locationR.text = "α:" + int(guy.rotation) + "°";;
+			}
+		} else {
+			if (insideCar){
+				spacePhone.locationX.text = "X: " + "?";
+				spacePhone.locationY.text = "Y: " + "?";
+				spacePhone.locationR.text = "α:" + int((-1 * vehicle.rotation + 180) % 360) + "°";;
+			} else {
+				spacePhone.locationX.text = "X: " + "?";
+				spacePhone.locationY.text = "Y: " + "?";
+				spacePhone.locationR.text = "α:" + int(guy.rotation) + "°";;
+			}
+		}
+	} catch (e: Error){
+		1;
+	}
+
+	if (Math.sqrt((guy.x - vehicle.x) * (guy.x - vehicle.x) + (guy.y - vehicle.y) * (guy.y - vehicle.y)) <= 200 && insideCar == false){
+		popupenv.gotoAndStop(2);
+	} else if (Math.sqrt((guy.x - spacebar.x) * (guy.x - spacebar.x) + (guy.y - spacebar.y) * (guy.y - spacebar.y)) <= 650 && insideCar == false){
+		popupenv.gotoAndStop(3);
+	} else if (Math.sqrt((vehicle.x - spacebar.x) * (vehicle.x - spacebar.x) + (vehicle.y - spacebar.y) * (vehicle.y - spacebar.y)) <= 650 && insideCar){
+		popupenv.gotoAndStop(3);
+	} else if (Math.sqrt((guy.x - spaceradio.x) * (guy.x - spaceradio.x) + (guy.y - spaceradio.y) * (guy.y - spaceradio.y)) <= 750 && insideCar == false){
+		popupenv.gotoAndStop(4);
+	} else if (Math.sqrt((vehicle.x - spaceradio.x) * (vehicle.x - spaceradio.x) + (vehicle.y - spaceradio.y) * (vehicle.y - spaceradio.y)) <= 750 && insideCar){
+		popupenv.gotoAndStop(4);
+	} else if (popupenv.currentFrame > 1){
+		popupenv.gotoAndStop(1);
+	}
+
+	if (Math.sqrt((guy.x - spacebh.x) * (guy.x - spacebh.x) + (guy.y - spacebh.y) * (guy.y - spacebh.y)) <= 650 && insideCar == false){
+		secondsElapsed += 1;
+	}
+	if (Math.sqrt((vehicle.x - spacebh.x) * (vehicle.x - spacebh.x) + (vehicle.y - spacebh.y) * (vehicle.y - spacebh.y)) <= 650 && insideCar){
+		secondsElapsed += 1;
+	}
+}
+
+stage.addEventListener(Event.ENTER_FRAME, mainFun);
+
+
+stage.addEventListener(KeyboardEvent.KEY_DOWN, pressMultipleKeys);
+function pressMultipleKeys(evt0: KeyboardEvent) {
+	if (evt0.keyCode == 87 || evt0.keyCode == 38) {
+		forwardOn = true;
+	} else if (evt0.keyCode == 65 || evt0.keyCode == 37) {
+		leftOn = true;
+	} else if (evt0.keyCode == 68 || evt0.keyCode == 39) {
+		rightOn = true;
+	} else if (evt0.keyCode == 83 || evt0.keyCode == 40) {
+		backOn = true;
+	} else if (evt0.keyCode == 13 || evt0.keyCode == 32) {
+		if (insideCar) { //get out
+			if (popupenv.currentFrame == 1){
+				insideCar = false;
+				guy.visible = true;
+				guy.x = (middleX + vehicle.x * 3) / 4;
+				guy.y = (middleY + vehicle.y * 3) / 4;
+				vehicle.gotoAndStop(98);
+			} else if (popupenv.currentFrame == 3){
+				enterBar();
+			} else if (popupenv.currentFrame == 4){
+				enterRadio();
+			}
+		} else { // get in
+			if (popupenv.currentFrame == 2) {
+				insideCar = true;
+				guy.visible = false;
+				vehicle.gotoAndPlay(1);
+			} else if (popupenv.currentFrame == 3){
+				enterBar();
+			} else if (popupenv.currentFrame == 4){
+				enterRadio();
+			}
+		}
+	}
+}
+
+stage.addEventListener(KeyboardEvent.KEY_UP, pressTakeKeys);
+function pressTakeKeys(evt00: KeyboardEvent) {
+	if (evt00.keyCode == 87 || evt00.keyCode == 38) {
+		forwardOn = false;
+	} else if (evt00.keyCode == 65 || evt00.keyCode == 37) {
+		leftOn = false;
+	} else if (evt00.keyCode == 68 || evt00.keyCode == 39) {
+		rightOn = false;
+	} else if (evt00.keyCode == 83 || evt00.keyCode == 40) {
+		backOn = false;
+	}
+}
+
+spacePhone.addEventListener(MouseEvent.MOUSE_OVER, phoneGo);
+function phoneGo(event: MouseEvent) {
+	onPhone = true;
+}
+spacePhone.addEventListener(MouseEvent.MOUSE_OUT, phoneNoGo);
+function phoneNoGo(event: MouseEvent) {
+	onPhone = false;
+}
+
+function showCredits(){
+	writeHour();
+	//trace("credits");
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogP.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes("6");
+	stream.close();
+	
+	printPosition();
+	
+	NativeApplication.nativeApplication.exit();
+}
+
+function simpleExit(){
+	writeHour();
+	//trace("credits");
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogP.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes("-1");
+	stream.close();
+	
+	var file2: File = File.documentsDirectory;
+	file2 = file2.resolvePath("spacebarlogS.txt");
+	var stream2: FileStream = new FileStream();
+	stream2.open(file2, FileMode.WRITE);
+	stream2.writeUTFBytes("1");
+	stream2.close();
+	
+	printPosition();
+	
+	NativeApplication.nativeApplication.exit();
+}
+
+function enterBar(){
+	writeHour();
+	//trace("bar");
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogP.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes("0");
+	stream.close();
+	
+	printPosition();
+	
+	NativeApplication.nativeApplication.exit();
+}
+
+function enterRadio(){
+	writeHour();
+	//trace("radio");
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogP.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes("2");
+	stream.close();
+	
+	printPosition();
+	
+	NativeApplication.nativeApplication.exit();
+}
+
+function resetTime(){
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogT.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes("1");
+	stream.close();
+	
+	var file2: File = File.documentsDirectory;
+	file2 = file2.resolvePath("spacebarlogS.txt");
+	var stream2: FileStream = new FileStream();
+	stream2.open(file2, FileMode.WRITE);
+	stream2.writeUTFBytes("2");
+	stream2.close();
+	
+	var file3: File = File.documentsDirectory;
+	file3 = file3.resolvePath("spacebarlogL.txt");
+	var stream3: FileStream = new FileStream();
+	stream3.open(file3, FileMode.WRITE);
+	stream3.writeUTFBytes("0\n0");
+	stream3.close();
+	
+	
+	
+	NativeApplication.nativeApplication.exit();	
+}
+
+function readHour(){
+	var file2: File = File.documentsDirectory;
+	file2 = file2.resolvePath("spacebarlogT.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file2, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	fileStream.close();
+	secondsElapsed = 35;
+	secondsElapsed = int(fileText);
+}
+
+function writeHour(){
+	currentTime = secondsElapsed + getTimer()/1000;
+	var timeToPrint: int;
+	timeToPrint = int(currentTime);
+	//trace(timeToPrint);
+	
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogT.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes(String(timeToPrint));
+	stream.close();
+}
+
+function handleTime(){
+	currentTime = secondsElapsed + getTimer()/1000;
+	
+	var timeToCheck: int;
+	timeToCheck = int(currentTime);
+	if (timeToCheck > 300){
+		resetTime();
+	}
+	
+	if (spacePhone.currentFrame != 1){
+		return;
+	}
+	var Thours: int;
+	var Tminutes: int;
+	var Tseconds: int;
+	var hourString: String;
+	hourString = "";
+	Thours = 3;
+	Tminutes = 9;
+	Tseconds = 7;
+	
+	Tseconds += int(currentTime);
+	Tminutes += Tseconds / 60;
+	Tseconds %= 60;
+	
+	if (Thours < 10){
+		hourString += "0";
+		hourString += String(Thours);
+		hourString += ":";
+	} else {
+		hourString += String(Thours);
+		hourString += ":";
+	}	
+	if (Tminutes < 10){
+		hourString += "0";
+		hourString += String(Tminutes);
+		hourString += ":";
+	} else {
+		hourString += String(Tminutes);
+		hourString += ":";
+	}	
+	if (Tseconds < 10){
+		hourString += "0";
+		hourString += String(Tseconds);
+	} else {
+		hourString += String(Tseconds);
+	}
+	
+	if (spacePhone.currentFrame == 1){
+		spacePhone.hourPlace.currentHour.text = hourString;
+	}
+	//trace(hourString);
+}
+
+function checkIntro(){
+	var reset: int;
+	reset = 1;
+	
+	var file2: File = File.documentsDirectory;
+	file2 = file2.resolvePath("spacebarlogS.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file2, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	fileStream.close();
+	reset = int(fileText);
+	
+	if (reset == 2){
+		resetAnim.gotoAndPlay(2);
+	
+		var file: File = File.documentsDirectory;
+		file = file.resolvePath("spacebarlogS.txt");
+		var stream: FileStream = new FileStream();
+		stream.open(file, FileMode.WRITE);
+		stream.writeUTFBytes("1");
+		stream.close();
+	} else {
+		if (reset == 1){
+			resetAnim.gotoAndStop(76);
+		}
+	}
+}
+
+function printPosition(){
+	var posToPrint: String;
+	posToPrint = "";
+	posToPrint += int(spacebg.x/parallax*(-1));
+	posToPrint += "\n";
+	posToPrint += int(spacebg.y/parallax*(-1));
+	
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogL.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes(posToPrint);
+	stream.close();
+}
+
+function setPosition(){
+	var modX: int;
+	var modY: int;
+	modX = 0;
+	modY = 0;
+	var file2: File = File.documentsDirectory;
+	file2 = file2.resolvePath("spacebarlogL.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file2, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	modX = int(myArrayOfLines[0]);
+	modY = int(myArrayOfLines[1]);
+	modifyPosition(modX*(-1), modY*(-1));
+}
+
+function modifyPosition(toX: int, toY: int){
+	//trace(toX, toY);
+	spacebg.x += toX * parallax;
+	spacebg.y += toY * parallax;
+	spacebar.x += toX;
+	spacebar.y += toY;
+	spaceradio.x += toX;
+	spaceradio.y += toY;
+	spaceorb.x += toX;
+	spaceorb.y += toY;
+	spacebh.x += toX * parallax;
+	spacebh.y += toY * parallax;
+}

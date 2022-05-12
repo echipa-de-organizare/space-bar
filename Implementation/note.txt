@@ -1,0 +1,1 @@
+About 700-900 other lines of code are dispersed elsewhere through the project. For example, each feature of the phone has the code integrated withing itself. I only attached the main (stage) code for each project.
