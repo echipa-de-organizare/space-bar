@@ -52,7 +52,7 @@ Other cool features:
 
 All the pictures and sounds used are under CC0 - Creative Commons.
 
-For more cool stories and details about the development of this project, check the **Stories** directory.
+**For more cool stories, walkthrough, and details about the development of this project, check the _Stories_ directory.** 
 
 Notes:
 
