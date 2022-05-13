@@ -1,61 +1,115 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <story>
-    <!--poti schimba serverul sa ia intrebarea pentru fiecare raspuns din alt fisier-->
-    <!--si atunci am rezolvat si cu mersul inapoi -->
     <question id="100" text="Bep bop bep bop...">
         <option id="101" text="[Turn on Radio]">
             <question id="110"
-                      text="Uryyb. Guvf vf na nhgbzngvpnyyl frag qvfgerff zrffntr. Vs lbh pbcl, cyrnfr erfcbaq. \n Uryyb. Guvf vf na nhgbzngvpnyyl fraq qvfge...">
+                      text="Uryyb. Guvf vf na nhgbzngvpnyyl frag qvfgerff zrffntr. Vs lbh pbcl, cyrnfr erfcbaq. Uryyb. Guvf vf na nhgbzngvpnyyl fraq qvfge...">
                 <option id="111" text="Hello! Anyone there? Do you speak English?">
                     <question id="120" text="Hello! Xnzrzoreg, fbzrbar nafjrerq! Tb oevat n genafyngbe dhvpx! Hold on!">
                         <option id="121" text="I can't understand you.">
                             <question id="130" text="Hello. Can you hear us?">
-                                <option id="131" text="I can hear you. Where are you?">blank</option>
-<!--                                <option id="132" text="">blank</option>-->
+                                <option id="131" text="I can hear you. Where are you?">
+                                    <question id="150"
+                                              text="We've got sucked into a black hole and this radio is the only way we can communicate.">
+                                        <option id="151" text="Sorry about that. What is it like in there?">
+                                            <question id="180"
+                                                      text="It's very dark. Listen, there is something very strange happening here.">
+                                                <option id="181" text="What is it?">
+                                                    <question id="190"
+                                                              text="The time seems to be resetting every 5 minutes at 3:14:07.">
+                                                        <option id="191"
+                                                                text="Isn't this only affecting you because you're in a black hole?">
+                                                            <question id="200"
+                                                                      text="No, because I overheard some guy talking about this. His name is Gadbuy.">
+                                                                <option id="201" text="Well, what did he say?">
+                                                                    <question id="210"
+                                                                              text="Gadbuy put this mechanism in place in order to advance technologically faster than others, so that he could conquer the universe.">
+                                                                        <option id="211" text="How can we stop him?">
+                                                                            <question id="220"
+                                                                                      text="First, you need to find his ship. It's located at (0,0), with the relative code 8253FJ.">
+                                                                                <option id="221" text="And then?">
+                                                                                    <question id="240"
+                                                                                              text="Then, I heard about some code sequence that needs to be entered to stop the machine. That's all I know.">
+                                                                                        <option id="241"
+                                                                                                text="Got it. I'll be on my way then. Thank you for your help!">
+                                                                                            <question id="260"
+                                                                                                      text="Good luck. The universe depends on you. Goodbye!">
+                                                                                                <option id="261"
+                                                                                                        text="Goodbye!">
+                                                                                                    blank
+                                                                                                </option>
+                                                                                            </question>
+                                                                                        </option>
+                                                                                    </question>
+                                                                                </option>
+                                                                                <option id="222"
+                                                                                        text="Is he dangerous?">
+                                                                                    <question id="230"
+                                                                                              text="Yes, he is, but you can't let him destroy all of us!">
+                                                                                        <option id="231" text="You're right. What should I do once I get there?">
+                                                                                            <question id="240" text="up">blank</question>
+                                                                                        </option>
+                                                                                        <option id="232"
+                                                                                                text="I actually can.">
+                                                                                            <question id="250"
+                                                                                                      text="Fine, then let's all die. Goodbye!">
+                                                                                                <option id="251"
+                                                                                                        text="[Leave]">
+                                                                                                    blank
+                                                                                                </option>
+                                                                                            </question>
+                                                                                        </option>
+                                                                                    </question>
+                                                                                </option>
+                                                                            </question>
+                                                                        </option>
+                                                                    </question>
+                                                                </option>
+                                                            </question>
+                                                        </option>
+                                                        <option id="192" text="Do you have any idea why this happens?">
+                                                            <question id="210" text="up">blank</question>
+
+                                                        </option>
+                                                        <option id="193" text="How can it be stopped?">
+                                                            <question id="220" text="up">blank</question>
+                                                        </option>
+                                                    </question>
+                                                </option>
+                                            </question>
+                                        </option>
+                                        <option id="152" text="Well, have you tried getting out of there?">
+                                            <question id="160"
+                                                      text="No. How have we not thought of that? What a genius you are!">
+                                                <option id="161" text="You're welcome.">
+                                                    <question id="170" text="Goodbye!">
+                                                        <option id="171" text="[Leave]">blank</option>
+                                                    </question>
+                                                </option>
+                                                <option id="162" text="[Leave]">blank</option>
+                                            </question>
+                                        </option>
+                                    </question>
+                                </option>
+                                <option id="133" text="Nope.">
+                                    <question id="140" text="Very funny. Goodbye! Jung na vqvbg!">
+                                        <option id="141" text="[Leave]">blank</option>
+                                    </question>
+                                </option>
                             </question>
                         </option>
                         <option id="102" text="[Leave]">blank</option>
-                        <option id="103" text="[]">blank</option>
                     </question>
                 </option>
                 <option id="112" text="I was sent here by Oevr. He told me about this radio.">
-                    <question id="120"
-                              text="up">blank
-                    </question>
+                    <question id="120" text="up">blank</question>
                 </option>
-                <option id="113" text="do you know anybody named gadbuy?">blank</option>
+                <option id="113" text="I can't understand you.">
+                    <question id="130" text="up">blank</question>
+                </option>
             </question>
         </option>
         <option id="102" text="[Leave]">blank</option>
-        <option id="103" text="[test]">
-            <question id="140" text="[Testing question with single option lalaa]">
-                <option id="141" text="[single choice]">
-                    <question id="150" text="2 options">
-                        <option id="151" text="1 this goes to five options">
-                            <question id="160" text="Testing question with five options lalaa">
-                                <option id="161" text="1">blank</option>
-                                <option id="162" text="2">blank</option>
-                                <option id="163" text="3">blank</option>
-                                <option id="164" text="4 this goes up">
-                                    <question id="100" text="lalaa">blank</question>
-                                </option>
-                                <option id="165" text="5">blank</option>
-                            </question>
-                        </option>
-                        <option id="152" text="2 this goes to four options">
-                            <question id="170" text="alex e dragut">
-                                <option id="171" text="1 da normal ca e">blank</option>
-                                <option id="172" text="2 foarte">blank</option>
-                                <option id="173" text="3 this goes up">
-                                    <question id="100" text="lala">blank</question>
-                                </option>
-                                <option id="174" text="4 hihi">blank</option>
-                            </question>
-                        </option>
-                    </question>
-                </option>
-            </question>
-        </option>
     </question>
 </story>
 

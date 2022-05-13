@@ -32,6 +32,7 @@ local_end = 0
 spacebarlogT = os.path.expanduser("~\\Documents\\spacebarlogT.txt")
 spacebarlogP = os.path.expanduser("~\\Documents\\spacebarlogP.txt")
 spacebarlogS = os.path.expanduser("~\\Documents\\spacebarlogS.txt")
+spacebarlogL = os.path.expanduser("~\\Documents\\spacebarlogL.txt")
 
 
 def read_seconds():
@@ -55,6 +56,12 @@ def write_state(state):
         f.write(str(state))
 
 
+def write_location():
+    with open(spacebarlogL, "w") as f:
+        f.truncate()
+        f.write("0\n0")
+
+
 def place_radio():
     radio = pygame.image.load("resources/radio.png")
     x, y = screen.get_size()
@@ -74,6 +81,9 @@ x, y = screen.get_size()
 video = cv2.VideoCapture("resources/radio.mp4")
 fps = video.get(cv2.CAP_PROP_FPS)
 clock = pygame.time.Clock()
+radiosoundeffect_music.play(pygame.mixer.Sound("resources/radiosoundeffectshorter.mp3"),
+                            loops=0)
+radiosoundeffect_music.set_volume(1.0)
 
 
 def get_oid_by_index(option_ids, selected_index):
@@ -289,6 +299,7 @@ if __name__ == '__main__':
                 local_end = local_start - global_seconds
                 write_seconds()
                 write_state(2)
+                write_location()
                 pygame.quit()
                 running = False
                 break
@@ -306,10 +317,10 @@ if __name__ == '__main__':
                                                     loops=0)
                         radiosoundeffect_music.set_volume(1.0)
 
-                        video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
-                        x, y = screen.get_size()
-                        video_surf = pygame.transform.scale(video_surf, (x, y))
-                        screen.blit(video_surf, (0, 0))
+                        # video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")
+                        # x, y = screen.get_size()
+                        # video_surf = pygame.transform.scale(video_surf, (x, y))
+                        # screen.blit(video_surf, (0, 0))
 
                     sock = create_connection()
                     oid = get_oid_by_index(option_ids, selected_index)
