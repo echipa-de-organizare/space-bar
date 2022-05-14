@@ -22,6 +22,16 @@ rule CXX_COMPILER__Core_Debug
 
 
 #############################################
+# Rule for compiling RC files.
+
+rule RC_COMPILER__Core_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = C:\PROGRA~1\CODEBL~1\MinGW\bin\windres.exe -O coff $DEFINES $INCLUDES $FLAGS $in $out
+  description = Building RC object $out
+
+
+#############################################
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__Core_Debug

@@ -46,14 +46,14 @@ def place_arrow(direction, state, y_pos):
         arrow = pygame.image.load(icon_bad_paths[direction])
     x, y = screen.get_size()
     arrow = pygame.transform.scale(arrow, (70, 70))
-    return screen.blit(arrow, (ceil(0.46 * x), y_pos))
+    return screen.blit(arrow, (ceil(0.478 * x), y_pos))
 
 
 def place_circle():
     circle = pygame.image.load("resources/circle.png")
     x, y = screen.get_size()
     circle = pygame.transform.scale(circle, (80, 80))
-    return screen.blit(circle, (ceil(0.4569 * x), ceil(0.85 * y)))
+    return screen.blit(circle, (ceil(0.475 * x), ceil(0.85 * y)))
 
 
 def place_score(score, score_villain):
@@ -135,6 +135,16 @@ def place_wrong():
     x, y = screen.get_size()
     textRect = text.get_rect()
     textRect.center = text_placement
+    screen.blit(text, textRect)
+
+
+def place_use_arrows():
+    pygame.font.init()
+    font = pygame.font.SysFont("Helvetica", 40)
+    text = font.render("Use keyboard arrows ->", True, (0, 255, 0))
+    x, y = screen.get_size()
+    textRect = text.get_rect()
+    textRect.center = ceil(0.3 * screen.get_width()), ceil(0.87 * screen.get_height())
     screen.blit(text, textRect)
 
 
@@ -235,7 +245,8 @@ if __name__ == '__main__':
     arr_index = 0
     y_pos = ceil(0.75 * screen.get_size()[1])
     PLACE_RANDOM_ARROW_EVENT = pygame.USEREVENT
-    pygame.time.set_timer(PLACE_RANDOM_ARROW_EVENT, 3500)
+    # pygame.time.set_timer(PLACE_RANDOM_ARROW_EVENT, 3500)
+
     # SHOW_SCORE = pygame.USEREVENT + 1
     show_good, show_perfect, show_bad, show_wrong, arrow_state = False, False, False, False, 0
     score, score_put, score_villain = 0, False, 0
@@ -244,11 +255,11 @@ if __name__ == '__main__':
 
     read_seconds()
     TIMES_UP = pygame.USEREVENT + 1
-    pygame.time.set_timer(TIMES_UP, (300 - global_seconds) * 1000)
+    # pygame.time.set_timer(TIMES_UP, (300 - global_seconds) * 1000)
 
     Clock = pygame.time.Clock()
     CLOCKTICK = pygame.USEREVENT + 2
-    pygame.time.set_timer(CLOCKTICK, 1000)
+    # pygame.time.set_timer(CLOCKTICK, 1000)
     set_clock(global_seconds)
 
     WON = pygame.USEREVENT + 3
@@ -257,6 +268,7 @@ if __name__ == '__main__':
     # pygame.time.set_timer(SLIDE_DOWN, 1)
 
     local_start = timeit.default_timer()
+    delay_arrow_event = True
     while running:
         # clock.tick(60)
         y_pos += 8
@@ -265,7 +277,14 @@ if __name__ == '__main__':
         place_sequence()
         place_circle()
         place_arrow(directions[arr_index], arrow_state, y_pos)
-        # pygame.time.delay(1000)
+        if delay_arrow_event:
+            place_use_arrows()
+            pygame.display.flip()
+            pygame.time.delay(2000)
+            pygame.time.set_timer(PLACE_RANDOM_ARROW_EVENT, 3500)
+            pygame.time.set_timer(TIMES_UP, (300 - global_seconds) * 1000)
+            pygame.time.set_timer(CLOCKTICK, 1000)
+            delay_arrow_event = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

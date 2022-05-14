@@ -127,7 +127,7 @@ void start_planet(int id)
 int main()
 {
     //run core in background: either one of these lines
-//    ShowWindow (GetConsoleWindow(), SW_HIDE);
+    ShowWindow (GetConsoleWindow(), SW_HIDE);
 //    FreeConsole();
     handle_files();
 
