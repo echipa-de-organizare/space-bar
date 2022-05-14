@@ -73,7 +73,7 @@ public class Screen extends JPanel implements ActionListener {
 //        textY -= 6;
         if (textY < -1200) {
             creditTimer.stop();
-            BufferedWriter writer;
+            BufferedWriter writerPlanet, writerState;
             try {
                 File file = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\spacebarlogS.txt");
                 Scanner scanner = new Scanner(file);
@@ -83,13 +83,16 @@ public class Screen extends JPanel implements ActionListener {
                 }
                 scanner.close();
 
-                writer = new BufferedWriter(new FileWriter(FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\spacebarlogP.txt"));
-                if (state == 1) {
-                    writer.write("1");
+                writerPlanet = new BufferedWriter(new FileWriter(FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\spacebarlogP.txt"));
+                writerState = new BufferedWriter(new FileWriter(FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\spacebarlogS.txt"));
+                if (state == 1 || state == 0) {
+                    writerPlanet.write("1");
+                    writerState.write("1");
                 } else if (state == 3) {
-                    writer.write("-1");
+                    writerPlanet.write("-1");
                 }
-                writer.close();
+                writerState.close();
+                writerPlanet.close();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
