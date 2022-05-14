@@ -283,7 +283,7 @@ if __name__ == '__main__':
         if delay_arrow_event:
             place_use_arrows()
             pygame.display.flip()
-            pygame.time.delay(2000)
+            pygame.time.delay(4000)
             pygame.time.set_timer(PLACE_RANDOM_ARROW_EVENT, 3500)
             pygame.time.set_timer(TIMES_UP, (300 - global_seconds) * 1000)
             pygame.time.set_timer(CLOCKTICK, 1000)
