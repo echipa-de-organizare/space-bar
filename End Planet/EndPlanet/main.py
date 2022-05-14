@@ -1,6 +1,5 @@
 import os
 import random
-import subprocess
 import time
 import timeit
 from math import ceil
@@ -10,27 +9,31 @@ import cv2
 import pygame
 
 # initialize game window
-from resources.utils import *
+from Resources.resourcesendplanet.utils import *
 
 random.seed(time.time())
 directions = [randint(0, 3) for _ in range(10)]
 sequence_states = [0 for _ in range(10)]
 # directions = [0 for i in range(20)]
-icon_paths = ["resources/up.png", "resources/right.png", "resources/down.png", "resources/left.png"]
-icon_active_paths = ["resources/upactive.png", "resources/rightactive.png", "resources/downactive.png",
-                     "resources/leftactive.png"]
-icon_good_paths = ["resources/upgood.png", "resources/rightgood.png", "resources/downgood.png",
-                   "resources/leftgood.png"]
-icon_bad_paths = ["resources/upbad.png", "resources/rightbad.png", "resources/downbad.png", "resources/leftbad.png"]
+icon_paths = ["Resources/resourcesendplanet/up.png", "Resources/resourcesendplanet/right.png",
+              "Resources/resourcesendplanet/down.png", "Resources/resourcesendplanet/left.png"]
+icon_active_paths = ["Resources/resourcesendplanet/upactive.png", "Resources/resourcesendplanet/rightactive.png",
+                     "Resources/resourcesendplanet/downactive.png",
+                     "Resources/resourcesendplanet/leftactive.png"]
+icon_good_paths = ["Resources/resourcesendplanet/upgood.png", "Resources/resourcesendplanet/rightgood.png",
+                   "Resources/resourcesendplanet/downgood.png",
+                   "Resources/resourcesendplanet/leftgood.png"]
+icon_bad_paths = ["Resources/resourcesendplanet/upbad.png", "Resources/resourcesendplanet/rightbad.png",
+                  "Resources/resourcesendplanet/downbad.png", "Resources/resourcesendplanet/leftbad.png"]
 
 pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("End planet")
-pygame.display.set_icon(pygame.image.load("resources/bg.png"))
+pygame.display.set_icon(pygame.image.load("Resources/resourcesendplanet/bg.png"))
 
 
 def place_bg():
-    radio = pygame.image.load("resources/bgdarkest.png")
+    radio = pygame.image.load("Resources/resourcesendplanet/bgdarkest.png")
     x, y = screen.get_size()
     radio = pygame.transform.scale(radio, (x, y))
     return screen.blit(radio, (0, 0))
@@ -50,7 +53,7 @@ def place_arrow(direction, state, y_pos):
 
 
 def place_circle():
-    circle = pygame.image.load("resources/circle.png")
+    circle = pygame.image.load("Resources/resourcesendplanet/circle.png")
     x, y = screen.get_size()
     circle = pygame.transform.scale(circle, (80, 80))
     return screen.blit(circle, (ceil(0.475 * x), ceil(0.85 * y)))
@@ -149,7 +152,7 @@ def place_use_arrows():
 
 
 def place_timemachine():
-    timemachine = pygame.image.load("resources/timemachine.png")
+    timemachine = pygame.image.load("Resources/resourcesendplanet/timemachine.png")
     imgx, imgy = timemachine.get_size()
     timemachine = pygame.transform.scale(timemachine, (ceil(0.6 * imgx), ceil(0.6 * imgy)))
     return screen.blit(timemachine, (ceil(0.19 * x), ceil(0.11 * y)))
@@ -193,7 +196,7 @@ def write_location():
 background_music = pygame.mixer.Channel(0)
 errorsoundeffect_music = pygame.mixer.Channel(1)
 validsoundeffect_music = pygame.mixer.Channel(2)
-background_music.play(pygame.mixer.Sound("resources/bgmusic.mp3"), loops=-1, fade_ms=5000)
+background_music.play(pygame.mixer.Sound("Resources/resourcesendplanet/bgmusic.mp3"), loops=-1, fade_ms=5000)
 
 # # opencv2
 x, y = screen.get_size()
@@ -331,7 +334,8 @@ if __name__ == '__main__':
                 #      -2])
                 if not score_put:
                     sequence_states[arr_index] = 2
-                    errorsoundeffect_music.play(pygame.mixer.Sound("resources/error_se.mp3"), loops=0)
+                    errorsoundeffect_music.play(pygame.mixer.Sound("Resources/resourcesendplanet/error_se.mp3"),
+                                                loops=0)
                     pygame.event.post(pygame.event.Event(TIMES_UP))
                 else:
                     y_pos = ceil(0.75 * screen.get_size()[1])
@@ -374,7 +378,8 @@ if __name__ == '__main__':
                                     show_wrong = False
                                     show_perfect = True
                                     sequence_states[arr_index] = 1
-                                    validsoundeffect_music.play(pygame.mixer.Sound("resources/valid_se.mp3"), loops=0)
+                                    validsoundeffect_music.play(pygame.mixer.Sound(
+                                        "Resources/resourcesendplanet/valid_se.mp3"), loops=0)
                             else:
                                 if not score_put:
                                     score += 5
@@ -385,7 +390,8 @@ if __name__ == '__main__':
                                     show_wrong = False
                                     show_perfect = False
                                     sequence_states[arr_index] = 1
-                                    validsoundeffect_music.play(pygame.mixer.Sound("resources/valid_se.mp3"), loops=0)
+                                    validsoundeffect_music.play(pygame.mixer.Sound(
+                                        "Resources/resourcesendplanet/valid_se.mp3"), loops=0)
                         else:
                             if not score_put:
                                 score -= 1
@@ -397,19 +403,20 @@ if __name__ == '__main__':
                                 show_perfect = False
                                 dec_index = True
                                 sequence_states[arr_index] = 2
-                                errorsoundeffect_music.play(pygame.mixer.Sound("resources/error_se.mp3"), loops=0)
+                                errorsoundeffect_music.play(pygame.mixer.Sound(
+                                    "Resources/resourcesendplanet/error_se.mp3"), loops=0)
                                 pygame.event.post(pygame.event.Event(TIMES_UP))
                         if event.key == pygame.K_UP:
-                            video = cv2.VideoCapture("resources/up.mp4")
+                            video = cv2.VideoCapture("Resources/resourcesendplanet/up.mp4")
                             fps = video.get(cv2.CAP_PROP_FPS)
                         elif event.key == pygame.K_RIGHT:
-                            video = cv2.VideoCapture("resources/right.mp4")
+                            video = cv2.VideoCapture("Resources/resourcesendplanet/right.mp4")
                             fps = video.get(cv2.CAP_PROP_FPS)
                         elif event.key == pygame.K_DOWN:
-                            video = cv2.VideoCapture("resources/down.mp4")
+                            video = cv2.VideoCapture("Resources/resourcesendplanet/down.mp4")
                             fps = video.get(cv2.CAP_PROP_FPS)
                         elif event.key == pygame.K_LEFT:
-                            video = cv2.VideoCapture("resources/left.mp4")
+                            video = cv2.VideoCapture("Resources/resourcesendplanet/left.mp4")
                             fps = video.get(cv2.CAP_PROP_FPS)
                     else:
                         if not score_put:
@@ -422,7 +429,8 @@ if __name__ == '__main__':
                             show_perfect = False
                             dec_index = True
                             sequence_states[arr_index] = 2
-                            errorsoundeffect_music.play(pygame.mixer.Sound("resources/error_se.mp3"), loops=0)
+                            errorsoundeffect_music.play(pygame.mixer.Sound("Resources/resourcesendplanet/error_se.mp3"),
+                                                        loops=0)
                             pygame.event.post(pygame.event.Event(TIMES_UP))
         if running:
             draw_clock()

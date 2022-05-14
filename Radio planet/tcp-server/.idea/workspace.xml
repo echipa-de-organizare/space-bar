@@ -2,31 +2,122 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91dda66b-d56c-4374-85c0-835d338a9718" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/.idea/tcp-planet.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/resources/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/resources/radio.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/resources/radio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/resources/space.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/resources/story.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/resources/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/tcp_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-planet/xml_handling.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/.idea/tcp-server.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../tcp-server/story.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/Gadbuy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/Gadbuy2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/bg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/bgmusic.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/emptyshot.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/revolver.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/revolvercock.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/revolverload.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/shot.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/slitheen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/resourcesgadbuy/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/.idea/Main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/query/cache-v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/query/codemodel-v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/query/toolchains-v1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/reply/cache-v2-c91393f6ee04c24b446e.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-1a36c2c234f2ac9cbc9b.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-720186d2643bb5f18a8c.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/reply/index-2022-05-14T16-34-29-0212.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/reply/target-Main-Debug-7ee09be7adb54c45a6b1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-c8b9cccc99e3dc6ee10a.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CMakeCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CMakeRCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CMakeSystem.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CompilerIdC/a.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/3.22.3/CompilerIdCXX/a.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/build.ninja" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Main/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Core/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../Core/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/Analysis-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/EXE-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/PKG-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/PYZ-00.pyz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/PYZ-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/base_library.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/base_library.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/main.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/main.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/warn-main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/warn-main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/xref-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/build/main/xref-main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/dist/main.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/dist/main.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/main.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/main.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/EndPlanet/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/bgdarker.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/bgdarkest.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/bgmusic.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/circle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/circleactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/downactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/downbad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/downgood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/error_se.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/error_se2.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/leftactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/leftbad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/leftgood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/rightactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/rightbad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/rightgood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/timemachine.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/up.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/upactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/upbad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/upgood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/valid_se.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/EndPlanet/resources/valid_se2.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/Analysis-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/EXE-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/PKG-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/PYZ-00.pyz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/PYZ-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/main.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/main.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/warn-main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/warn-main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/xref-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/build/main/xref-main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/dist/main.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/dist/main.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/main.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/main.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../End Planet/Gadbuy/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/Gadbuy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/Gadbuy2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/bgmusic.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/emptyshot.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/revolver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/revolvercock.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/revolverload.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/shot.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/slitheen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../End Planet/Gadbuy/resources/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../spacebar.exe.lnk" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,14 +138,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/ztr53/Documents/GitHub/space-bar/Radio planet/tcp-server"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="tcp-server" />
@@ -94,6 +183,7 @@
       <workItem from="1651138468360" duration="594000" />
       <workItem from="1651144772547" duration="188000" />
       <workItem from="1651145107692" duration="4879000" />
+      <workItem from="1652552712801" duration="64000" />
     </task>
     <servers />
   </component>

@@ -14,7 +14,7 @@ def check_children(root, qid):
 
 def get_data_by_qid(qid):
     # print(qid)
-    tree = ET.parse("ArtifactD.xml")
+    tree = ET.parse("Resources/resourcesradio/ArtifactD.xml")
     root = tree.getroot()
     check_children(root, qid)
     global question

@@ -14,7 +14,7 @@ def check_children(root, option_id):
 
 
 def get_next_question_id(option_id):
-    tree = ET.parse("ArtifactD.xml")
+    tree = ET.parse("Resources/resourcesradio/ArtifactD.xml")
     root = tree.getroot()
     check_children(root, option_id)
     global option

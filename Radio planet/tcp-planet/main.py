@@ -6,23 +6,24 @@ from math import ceil
 import cv2
 import pygame
 
-from resources.utils import *
 from tcp_client import *
 from xml_handling import *
+from Resources.resourcesradio.utils import *
 
 # initialize game window
 pygame.init()
 # screen = pygame.display.set_mode((1200, 800))
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Radio tcp planet")
-pygame.display.set_icon(pygame.image.load("resources/radio.png"))
+pygame.display.set_icon(pygame.image.load("Resources/resourcesradio/radio.png"))
 
 # background space music
 background_music = pygame.mixer.Channel(0)
 radiosoundeffect_music = pygame.mixer.Channel(1)
-background_music.play(pygame.mixer.Sound("resources/voyagespaceambientmusic.mp3"), loops=-1, fade_ms=5000)
+background_music.play(pygame.mixer.Sound("Resources/resourcesradio/voyagespaceambientmusic.mp3"), loops=-1,
+                      fade_ms=5000)
 
-# mixer.music.load("resources/voyagespaceambientmusic.mp3")
+# mixer.music.load("Resources/voyagespaceambientmusic.mp3")
 # mixer.music.play(-1)
 # current_music_pos = pygame.mixer.music.get_pos()
 
@@ -63,7 +64,7 @@ def write_location():
 
 
 def place_radio():
-    radio = pygame.image.load("resources/radio.png")
+    radio = pygame.image.load("Resources/resourcesradio/radio.png")
     x, y = screen.get_size()
     '''
     460*100/1080=x ====> 42.59 under radio
@@ -78,10 +79,10 @@ def place_radio():
 
 # # opencv2
 x, y = screen.get_size()
-video = cv2.VideoCapture("resources/radio.mp4")
+video = cv2.VideoCapture("Resources/resourcesradio/radio.mp4")
 fps = video.get(cv2.CAP_PROP_FPS)
 clock = pygame.time.Clock()
-radiosoundeffect_music.play(pygame.mixer.Sound("resources/radiosoundeffectshorter.mp3"),
+radiosoundeffect_music.play(pygame.mixer.Sound("Resources/resourcesradio/radiosoundeffectshorter.mp3"),
                             loops=0)
 radiosoundeffect_music.set_volume(1.0)
 
@@ -261,7 +262,7 @@ def draw_clock():
 
 
 if __name__ == '__main__':
-    subprocess.Popen("../tcp-server/main.exe", creationflags=subprocess.DETACHED_PROCESS, close_fds=True)
+    subprocess.Popen("Resources/resourcesradio/main.exe", creationflags=subprocess.DETACHED_PROCESS, close_fds=True)
     running = True
     selected_index = 0
     qid = 100
@@ -307,14 +308,15 @@ if __name__ == '__main__':
                 selected_index = set_selected_index(nr_options)
                 indexes = (i for i in range(1, nr_options + 1))
                 if selected_index in indexes:
-                    video = cv2.VideoCapture("resources/radio.mp4")
+                    video = cv2.VideoCapture("Resources/resourcesradio/radio.mp4")
                     fps = video.get(cv2.CAP_PROP_FPS)
                     clock = pygame.time.Clock()
 
                     success, video_image = video.read()
                     if success:
-                        radiosoundeffect_music.play(pygame.mixer.Sound("resources/radiosoundeffectshorter.mp3"),
-                                                    loops=0)
+                        radiosoundeffect_music.play(pygame.mixer.Sound(
+                            "Resources/resourcesradio/radiosoundeffectshorter.mp3"),
+                            loops=0)
                         radiosoundeffect_music.set_volume(1.0)
 
                         # video_surf = pygame.image.frombuffer(video_image.tobytes(), video_image.shape[1::-1], "BGR")

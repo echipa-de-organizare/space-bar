@@ -10,34 +10,34 @@ import cv2
 import pygame
 
 # initialize game window
-from resources.utils import *
+from Resources.resourcesgadbuy.utils import *
 
 random.seed(time.time())
 directions = [randint(0, 3) for _ in range(10)]
 sequence_states = [0 for _ in range(10)]
 # directions = [0 for i in range(20)]
-icon_paths = ["resources/up.png", "resources/right.png", "resources/down.png", "resources/left.png"]
-icon_active_paths = ["resources/upactive.png", "resources/rightactive.png", "resources/downactive.png",
-                     "resources/leftactive.png"]
-icon_good_paths = ["resources/upgood.png", "resources/rightgood.png", "resources/downgood.png",
-                   "resources/leftgood.png"]
-icon_bad_paths = ["resources/upbad.png", "resources/rightbad.png", "resources/downbad.png", "resources/leftbad.png"]
+icon_paths = ["Resources/resourcesgadbuy/up.png", "Resources/resourcesgadbuy/right.png", "Resources/resourcesgadbuy/down.png", "Resources/resourcesgadbuy/left.png"]
+icon_active_paths = ["Resources/resourcesgadbuy/upactive.png", "Resources/resourcesgadbuy/rightactive.png", "Resources/resourcesgadbuy/downactive.png",
+                     "Resources/resourcesgadbuy/leftactive.png"]
+icon_good_paths = ["Resources/resourcesgadbuy/upgood.png", "Resources/resourcesgadbuy/rightgood.png", "Resources/resourcesgadbuy/downgood.png",
+                   "Resources/resourcesgadbuy/leftgood.png"]
+icon_bad_paths = ["Resources/resourcesgadbuy/upbad.png", "Resources/resourcesgadbuy/rightbad.png", "Resources/resourcesgadbuy/downbad.png", "Resources/resourcesgadbuy/leftbad.png"]
 
 pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("End planet")
-pygame.display.set_icon(pygame.image.load("resources/bg.png"))
+pygame.display.set_icon(pygame.image.load("Resources/resourcesgadbuy/bg.png"))
 
 
 def place_bg():
-    radio = pygame.image.load("resources/bg.png")
+    radio = pygame.image.load("Resources/resourcesgadbuy/bg.png")
     x, y = screen.get_size()
     radio = pygame.transform.scale(radio, (x, y))
     return screen.blit(radio, (0, 0))
 
 
 def place_gadbuy():
-    gadbuy = pygame.image.load("resources/Gadbuy2.png")
+    gadbuy = pygame.image.load("Resources/resourcesgadbuy/Gadbuy2.png")
     imgx, imgy = gadbuy.get_size()
     gadbuy = pygame.transform.scale(gadbuy, (ceil(0.55 * imgx), ceil(0.55 * imgy)))
     return screen.blit(gadbuy, (ceil(0.28 * x), ceil(0.2 * y)))
@@ -187,7 +187,7 @@ def draw_text_selected(text):
 
 
 def place_roulette_img():
-    revolver = pygame.image.load("resources/revolver.png")
+    revolver = pygame.image.load("Resources/resourcesgadbuy/revolver.png")
     x, y = screen.get_size()
     imgx, imgy = revolver.get_size()
     revolver = pygame.transform.scale(revolver, (ceil(0.35 * imgx), ceil(0.35 * imgy)))
@@ -264,7 +264,7 @@ revolverload_soundeffect = pygame.mixer.Channel(1)
 revolvercock_soundeffect = pygame.mixer.Channel(2)
 emptyshot_soundeffect = pygame.mixer.Channel(3)
 shot_soundeffect = pygame.mixer.Channel(4)
-background_music.play(pygame.mixer.Sound("resources/bgmusic.mp3"), loops=-1, fade_ms=5000)
+background_music.play(pygame.mixer.Sound("Resources/resourcesgadbuy/bgmusic.mp3"), loops=-1, fade_ms=5000)
 
 if __name__ == '__main__':
     running = True
@@ -337,10 +337,10 @@ if __name__ == '__main__':
                         pygame.time.delay(500)
                         play_roulette = True
                 if button_selected == 1:
-                    revolverload_soundeffect.play(pygame.mixer.Sound("resources/revolverload.mp3"), loops=0)
+                    revolverload_soundeffect.play(pygame.mixer.Sound("Resources/resourcesgadbuy/revolverload.mp3"), loops=0)
                     pygame.time.delay(3500)
                     # if not revolverload_soundeffect.get_busy():
-                    revolvercock_soundeffect.play(pygame.mixer.Sound("resources/revolvercock.mp3"), loops=0)
+                    revolvercock_soundeffect.play(pygame.mixer.Sound("Resources/resourcesgadbuy/revolvercock.mp3"), loops=0)
                     revolvercock_soundeffect.set_volume(1.0)
                     pygame.time.delay(2000)
                     random.seed(time.time())
@@ -354,7 +354,7 @@ if __name__ == '__main__':
             if event.type == FINISHED_BAD:
                 place_bg()
                 place_gadbuy()
-                shot_soundeffect.play(pygame.mixer.Sound("resources/shot.mp3"), loops=0)
+                shot_soundeffect.play(pygame.mixer.Sound("Resources/resourcesgadbuy/shot.mp3"), loops=0)
                 place_died_text()
                 pygame.display.flip()
                 pygame.time.delay(2000)
@@ -373,7 +373,7 @@ if __name__ == '__main__':
             if event.type == FINISHED_GOOD:
                 place_bg()
                 place_gadbuy()
-                emptyshot_soundeffect.play(pygame.mixer.Sound("resources/emptyshot.wav"), loops=0)
+                emptyshot_soundeffect.play(pygame.mixer.Sound("Resources/resourcesgadbuy/emptyshot.wav"), loops=0)
                 place_lucky_text()
                 pygame.display.flip()
                 pygame.time.delay(4000)

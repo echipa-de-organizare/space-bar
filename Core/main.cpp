@@ -55,19 +55,19 @@ void handle_files()
 }
 void hardcode_planets()
 {
-    planets.insert(std::pair<int, std::string>(0, "..\\..\\Release Bar\\Bar\\Bar.exe"));
-    planets.insert(std::pair<int, std::string>(1, "..\\..\\Release Travel\\Travel\\Travel.exe"));
-    planets.insert(std::pair<int, std::string>(2, "..\\..\\Radio planet\\tcp-planet\\main.exe"));
-    planets.insert(std::pair<int, std::string>(3, "..\\..\\End Planet\\Gadbuy\\main.exe"));
-    planets.insert(std::pair<int, std::string>(4, "..\\..\\End Planet\\EndPlanet\\main.exe"));
-    planets.insert(std::pair<int, std::string>(6, "..\\..\\EndCredits\\EndCredits.jar"));
+    planets.insert(std::pair<int, std::string>(0, "Release Bar\\Bar\\Bar.exe"));
+    planets.insert(std::pair<int, std::string>(1, "Release Travel\\Travel\\Travel.exe"));
+    planets.insert(std::pair<int, std::string>(2, "Radio planet\\tcp-planet\\main.exe"));
+    planets.insert(std::pair<int, std::string>(3, "End Planet\\Gadbuy\\main.exe"));
+    planets.insert(std::pair<int, std::string>(4, "End Planet\\EndPlanet\\main.exe"));
+    planets.insert(std::pair<int, std::string>(6, "EndCredits\\EndCredits.jar"));
 
     std::string empty;
     working_directories.insert(std::pair<int, std::string>(0, empty));
     working_directories.insert(std::pair<int, std::string>(1, empty));
-    working_directories.insert(std::pair<int, std::string>(2, "..\\..\\Radio planet\\tcp-planet"));
-    working_directories.insert(std::pair<int, std::string>(3, "..\\..\\End Planet\\Gadbuy"));
-    working_directories.insert(std::pair<int, std::string>(4, "..\\..\\End Planet\\EndPlanet"));
+    working_directories.insert(std::pair<int, std::string>(2, empty));
+    working_directories.insert(std::pair<int, std::string>(3, empty));
+    working_directories.insert(std::pair<int, std::string>(4, empty));
     working_directories.insert(std::pair<int, std::string>(6, empty));
 }
 std::string get_planet_path(int id)

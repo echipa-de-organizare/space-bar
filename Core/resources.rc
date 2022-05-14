@@ -7,8 +7,8 @@
 #define IDI_ICON_5 105
 #define IDI_ICON_6 106
 #define IDI_ICON_7 107
-IDI_ICON_1 ICON "i2.ico"
-IDI_ICON_2 ICON "i3.ico"
+IDI_ICON_1 ICON "i3.ico"
+IDI_ICON_2 ICON "i2.ico"
 IDI_ICON_3 ICON "i1.ico"
 IDI_ICON_4 ICON "i4.ico"
 IDI_ICON_5 ICON "i5.ico"
