@@ -1,5 +1,5 @@
 # space-bar
-The best space game out there in 2022.
+The best space game in 2022.
 
 How to play:
 
