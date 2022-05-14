@@ -30,7 +30,7 @@ pygame.display.set_icon(pygame.image.load("resources/bg.png"))
 
 
 def place_bg():
-    radio = pygame.image.load("resources/bg.png")
+    radio = pygame.image.load("resources/bgdarkest.png")
     x, y = screen.get_size()
     radio = pygame.transform.scale(radio, (x, y))
     return screen.blit(radio, (0, 0))
@@ -94,13 +94,19 @@ def place_good():
 
 
 def place_sequence():
+    x, y = screen.get_size()
+    surface = pygame.Surface((550, 55))
+    surface.fill((0, 5, 0))
+    surface.set_alpha(240)
+    screen.blit(surface, (ceil(0.345 * x), ceil(0.05 * y)))
+
     pygame.font.init()
     font = pygame.font.SysFont("Helvetica", 30)
     text = font.render("Code sequence: ", True, (255, 255, 255))
-    x, y = screen.get_size()
     textRect = text.get_rect()
-    textRect.center = (ceil(0.28 * x), ceil(0.13 * y))
+    textRect.center = (ceil(0.28 * x), ceil(0.07 * y))
     screen.blit(text, textRect)
+
     for i in range(len(directions)):
         arrow = pygame.image.load(icon_active_paths[directions[i]])
         if sequence_states[i] == 1:
@@ -109,7 +115,7 @@ def place_sequence():
             arrow = pygame.image.load(icon_bad_paths[directions[i]])
         x, y = screen.get_size()
         arrow = pygame.transform.scale(arrow, (30, 30))
-        screen.blit(arrow, (ceil(0.34 * x) + (i + 1) * 50, ceil(0.12 * y)))
+        screen.blit(arrow, (ceil(0.34 * x) + (i + 1) * 50, ceil(0.06 * y)))
 
 
 def place_bad():
@@ -130,6 +136,13 @@ def place_wrong():
     textRect = text.get_rect()
     textRect.center = text_placement
     screen.blit(text, textRect)
+
+
+def place_timemachine():
+    timemachine = pygame.image.load("resources/timemachine.png")
+    imgx, imgy = timemachine.get_size()
+    timemachine = pygame.transform.scale(timemachine, (ceil(0.6 * imgx), ceil(0.6 * imgy)))
+    return screen.blit(timemachine, (ceil(0.19 * x), ceil(0.11 * y)))
 
 
 spacebarlogT = os.path.expanduser("~\\Documents\\spacebarlogT.txt")
@@ -248,9 +261,11 @@ if __name__ == '__main__':
         # clock.tick(60)
         y_pos += 8
         place_bg()
+        place_timemachine()
         place_sequence()
         place_circle()
         place_arrow(directions[arr_index], arrow_state, y_pos)
+        # pygame.time.delay(1000)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

@@ -30,17 +30,17 @@ pygame.display.set_icon(pygame.image.load("resources/bg.png"))
 
 
 def place_bg():
-    radio = pygame.image.load("resources/bg.jpg")
+    radio = pygame.image.load("resources/bg.png")
     x, y = screen.get_size()
     radio = pygame.transform.scale(radio, (x, y))
     return screen.blit(radio, (0, 0))
 
 
 def place_gadbuy():
-    gadbuy = pygame.image.load("resources/slitheen.png")
-    x, y = screen.get_size()
-    gadbuy = pygame.transform.scale(gadbuy, (ceil(0.3 * x), ceil(0.44 * y)))
-    return screen.blit(gadbuy, (ceil(0.33 * x), ceil(0.22 * y)))
+    gadbuy = pygame.image.load("resources/Gadbuy.png")
+    imgx, imgy = gadbuy.get_size()
+    gadbuy = pygame.transform.scale(gadbuy, (ceil(0.65 * imgx), ceil(0.65 * imgy)))
+    return screen.blit(gadbuy, (ceil(0.19 * x), ceil(0.14 * y)))
 
 
 text_placement = (ceil(0.48 * screen.get_width()), ceil(0.16 * screen.get_height()))
@@ -90,11 +90,6 @@ def write_location():
         f.write("0\n0")
 
 
-# background space music
-background_music = pygame.mixer.Channel(0)
-# errorsoundeffect_music = pygame.mixer.Channel(1)
-background_music.play(pygame.mixer.Sound("resources/bgmusic.mp3"), loops=-1, fade_ms=5000)
-
 # # opencv2
 x, y = screen.get_size()
 video = cv2.VideoCapture("")
@@ -121,7 +116,7 @@ def set_clock(global_seconds):
 def draw_clock():
     pygame.font.init()
     # font = pygame.font.SysFont("Trebuchet MS", 25)
-    font = pygame.font.SysFont("Candara", 30)
+    font = pygame.font.SysFont("Helvetica", 30)
     day_text = font.render("Date: 19 January 2038", True, WHITE)
     hour_text = font.render("Time: 03", True, WHITE)  # zero-pad hours to 2 digits
     minute_text = font.render(":{0:02}".format(current_minute), True, WHITE)  # zero-pad minutes to 2 digits
@@ -142,7 +137,7 @@ current_minute = 9
 current_second = 7
 gadbuy_text = ["Hey! What are you doing on my ship?",
                "Stop me from what?",
-               "Right, that. Well, I don't have time to fight you, I'm late to a evils anonymous meeting",
+               "Right, that. Well, I don't have time to fight you, I'm late to a evils anonymous meeting.",
                "Not really. Let's play russian roulette. If you survive, I'll let you figure out on your own how to stop it."]
 my_text = ["I'm here to stop you!",
            "You know, the time mechanism...",
@@ -164,7 +159,7 @@ def set_selected_index():
 
 def draw_option_text(text):
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30)
+    font = pygame.font.SysFont("Verdana", 30, bold=True)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 100
@@ -178,7 +173,7 @@ def draw_option_text(text):
 
 def draw_text(text):
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30)
+    font = pygame.font.SysFont("Verdana", 30)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 100
@@ -192,7 +187,7 @@ def draw_text(text):
 
 def draw_text_selected(text):
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30)
+    font = pygame.font.SysFont("Verdana", 30)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 100
@@ -227,13 +222,13 @@ def set_selected_button():
 
 def place_button():
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30)
+    font = pygame.font.SysFont("Candara", 30, bold=True)
     text = font.render("Try your luck", True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 80
     surface = pygame.Surface((200, surf_height))
-    surface.fill(DARK)
-    surface.set_alpha(180)
+    surface.fill((80, 0, 0))
+    surface.set_alpha(200)
     global start_button_y, start_button_x
     screen.blit(surface, (w - start_button_x, h - start_button_y))
     screen.blit(text, (20 + w - start_button_x, h - start_button_y + surf_height // 3))
@@ -241,13 +236,13 @@ def place_button():
 
 def place_button_selected():
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30)
+    font = pygame.font.SysFont("Candara", 30, bold=True)
     text = font.render("Try your luck", True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 80
     surface = pygame.Surface((200, surf_height))
-    surface.fill(DARK)
-    surface.set_alpha(200)
+    surface.fill((80, 0, 0))
+    surface.set_alpha(240)
     global start_button_y, start_button_x
     screen.blit(surface, (w - start_button_x, h - start_button_y))
     screen.blit(text, (20 + w - start_button_x, h - start_button_y + surf_height // 3))
@@ -266,12 +261,20 @@ def place_died_text():
 def place_lucky_text():
     pygame.font.init()
     font = pygame.font.SysFont("Helvetica", 60)
-    text = font.render("Lucky!", True, (255, 255, 255))
+    text = font.render("You survived! I guess you can try to turn off my machine now.", True, (255, 255, 255))
     x, y = screen.get_size()
     textRect = text.get_rect()
     textRect.center = text_placement
     screen.blit(text, textRect)
 
+
+# background space music
+background_music = pygame.mixer.Channel(0)
+revolverload_soundeffect = pygame.mixer.Channel(1)
+revolvercock_soundeffect = pygame.mixer.Channel(2)
+emptyshot_soundeffect = pygame.mixer.Channel(3)
+shot_soundeffect = pygame.mixer.Channel(4)
+background_music.play(pygame.mixer.Sound("resources/bgmusic.mp3"), loops=-1, fade_ms=5000)
 
 if __name__ == '__main__':
     running = True
@@ -344,6 +347,12 @@ if __name__ == '__main__':
                         pygame.time.delay(500)
                         play_roulette = True
                 if button_selected == 1:
+                    revolverload_soundeffect.play(pygame.mixer.Sound("resources/revolverload.mp3"), loops=0)
+                    pygame.time.delay(3500)
+                    # if not revolverload_soundeffect.get_busy():
+                    revolvercock_soundeffect.play(pygame.mixer.Sound("resources/revolvercock.mp3"), loops=0)
+                    revolvercock_soundeffect.set_volume(1.0)
+                    pygame.time.delay(2000)
                     random.seed(time.time())
                     nr = random.randint(1, 6)
                     if nr == 1:
@@ -355,10 +364,14 @@ if __name__ == '__main__':
             if event.type == FINISHED_BAD:
                 place_bg()
                 place_gadbuy()
+                shot_soundeffect.play(pygame.mixer.Sound("resources/shot.mp3"), loops=0)
                 place_died_text()
                 pygame.display.flip()
-                pygame.time.delay(1000)
+                pygame.time.delay(2000)
                 background_music.stop()
+                revolverload_soundeffect.stop()
+                revolvercock_soundeffect.stop()
+                shot_soundeffect.stop()
                 write_to_next_planet_file()
                 local_end = local_start - global_seconds
                 write_seconds()
@@ -370,12 +383,16 @@ if __name__ == '__main__':
             if event.type == FINISHED_GOOD:
                 place_bg()
                 place_gadbuy()
+                emptyshot_soundeffect.play(pygame.mixer.Sound("resources/emptyshot.wav"), loops=0)
                 place_lucky_text()
                 pygame.display.flip()
-                pygame.time.delay(1000)
+                pygame.time.delay(4000)
                 background_music.stop()
+                revolverload_soundeffect.stop()
+                revolvercock_soundeffect.stop()
+                emptyshot_soundeffect.stop()
                 write_to_next_planet_file(planet=4)
-                local_end = timeit.default_timer()
+                local_end = timeit.default_timer() - 8
                 write_seconds()
                 write_state(1)
                 write_location()
