@@ -37,23 +37,10 @@ def place_bg():
 
 
 def place_gadbuy():
-    gadbuy = pygame.image.load("resources/Gadbuy.png")
+    gadbuy = pygame.image.load("resources/Gadbuy2.png")
     imgx, imgy = gadbuy.get_size()
-    gadbuy = pygame.transform.scale(gadbuy, (ceil(0.65 * imgx), ceil(0.65 * imgy)))
-    return screen.blit(gadbuy, (ceil(0.19 * x), ceil(0.14 * y)))
-
-
-text_placement = (ceil(0.48 * screen.get_width()), ceil(0.16 * screen.get_height()))
-
-
-def place_perfect():
-    pygame.font.init()
-    font = pygame.font.SysFont("Helvetica", 50)
-    text = font.render("Perfect!", True, (255, 255, 255))
-    x, y = screen.get_size()
-    textRect = text.get_rect()
-    textRect.center = text_placement
-    screen.blit(text, textRect)
+    gadbuy = pygame.transform.scale(gadbuy, (ceil(0.55 * imgx), ceil(0.55 * imgy)))
+    return screen.blit(gadbuy, (ceil(0.28 * x), ceil(0.2 * y)))
 
 
 spacebarlogT = os.path.expanduser("~\\Documents\\spacebarlogT.txt")
@@ -144,8 +131,8 @@ my_text = ["I'm here to stop you!",
            "So, you're just going to let me turn it off that easy?",
            "Fine."]
 x, y = pygame.display.get_surface().get_size()
-start_q_y = 250
-start_o_y = 150
+start_q_y = 220
+start_o_y = 120
 
 
 def set_selected_index():
@@ -159,7 +146,7 @@ def set_selected_index():
 
 def draw_option_text(text):
     pygame.font.init()
-    font = pygame.font.SysFont("Verdana", 30, bold=True)
+    font = pygame.font.SysFont("Verdana", 28)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 100
@@ -173,7 +160,7 @@ def draw_option_text(text):
 
 def draw_text(text):
     pygame.font.init()
-    font = pygame.font.SysFont("Verdana", 30)
+    font = pygame.font.SysFont("Verdana", 28)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 100
@@ -187,7 +174,7 @@ def draw_text(text):
 
 def draw_text_selected(text):
     pygame.font.init()
-    font = pygame.font.SysFont("Verdana", 30)
+    font = pygame.font.SysFont("Verdana", 28)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surf_height = 100
@@ -203,7 +190,7 @@ def place_roulette_img():
     revolver = pygame.image.load("resources/revolver.png")
     x, y = screen.get_size()
     imgx, imgy = revolver.get_size()
-    revolver = pygame.transform.scale(revolver, (ceil(0.4 * imgx), ceil(0.4 * imgy)))
+    revolver = pygame.transform.scale(revolver, (ceil(0.35 * imgx), ceil(0.35 * imgy)))
     return screen.blit(revolver, (ceil(0.33 * x), y - 250))
 
 
@@ -248,9 +235,12 @@ def place_button_selected():
     screen.blit(text, (20 + w - start_button_x, h - start_button_y + surf_height // 3))
 
 
+text_placement = (ceil(0.48 * screen.get_width()), ceil(0.14 * screen.get_height()))
+
+
 def place_died_text():
     pygame.font.init()
-    font = pygame.font.SysFont("Helvetica", 60)
+    font = pygame.font.SysFont("Candara", 40, bold=True)
     text = font.render("You died!", True, (255, 255, 255))
     x, y = screen.get_size()
     textRect = text.get_rect()
@@ -260,7 +250,7 @@ def place_died_text():
 
 def place_lucky_text():
     pygame.font.init()
-    font = pygame.font.SysFont("Helvetica", 60)
+    font = pygame.font.SysFont("Candara", 40, bold=True)
     text = font.render("You survived! I guess you can try to turn off my machine now.", True, (255, 255, 255))
     x, y = screen.get_size()
     textRect = text.get_rect()

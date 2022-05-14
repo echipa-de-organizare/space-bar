@@ -142,7 +142,7 @@ def set_selected_index(nr_options):
 
 def draw_option_text(text, nr_options):
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30,bold=True)
+    font = pygame.font.SysFont("Helvetica", 30)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     # surf_height = text.get_size()[1]
@@ -160,7 +160,7 @@ def draw_option_text(text, nr_options):
 
 def draw_text(text, nr_options, index=1):
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30,bold=True)
+    font = pygame.font.SysFont("Helvetica", 30)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     surface = pygame.Surface((w, hardcoded_sizes[nr_options]))
@@ -174,7 +174,7 @@ def draw_text(text, nr_options, index=1):
 
 def draw_text_selected(text, nr_options, index=1):
     pygame.font.init()
-    font = pygame.font.SysFont("Candara", 30,bold=True)
+    font = pygame.font.SysFont("Helvetica", 30)
     text = font.render(text, True, (255, 255, 255))
     w, h = pygame.display.get_surface().get_size()
     # surface = pygame.Surface((w, text.get_size()[1] + 45))
