@@ -3,12 +3,16 @@ The best space game in 2022.
 
 How to play:
 
-If you don't have Adobe AIR installed on your computer, use the file AdobeAIR.exe from this repository before launching the game.
-Then, launch the Core.exe from the Core, in order to start the game.
+Download the latest release.
+If you don't have Adobe AIR installed on your computer, use the file AdobeAIR.exe to install it, before launching the game.
+Then, launch spacebar.exe, in order to start the game.
 If this is your first time playing, the game will automatically set up everything for you.
 
 **Next, enjoy this adventure, discover new characters, learn how to operate a space ship and how to travel in this vast, open-world, space environment.
 Find out what's going on, what mysteries are there hidden, and solve them.**
+
+
+**Also, please make sure you don't miss any features. If you get stuck, check the Walkthrough from the _Stories_ directory. There is plenty to explore.**
 
 --
 
@@ -39,7 +43,7 @@ Other cool features:
 
 • No game engine was used for the bar or the travelling environment. Everything was programmed by ourselves, line by line. For example, the vehicle movements were programmed using trigonometric equations, all calculated by hand. Even the intertia for the objects was simulated in hand-written code, using physics formulas.
 
-• To simulate real connections, the communications when using a radio are done in the back-end with a TCP server. So, the dialogue isn't actually incorporated in the code, and you get the answers from the other side with a TCP connection.
+• To simulate real connections, the communications when using a radio are done in the back-end with a **TCP** server. So, the dialogue isn't actually incorporated in the code, and you get the answers from the other side with a TCP connection.
 
 • Beside the quest itself, you also have other fun things to do, with your phone (which is to be found in the right side, with the mouse, while outside, in space). You have Radio, with cool tracks, you can call your ship to come closer to you, you have tips for playing the game, a minigame, and even a space-themed dating app.
 
@@ -52,7 +56,9 @@ Other cool features:
 
 All the pictures and sounds used are under CC0 - Creative Commons.
 
-**For more cool stories, walkthrough, and details about the development of this project, check the _Stories_ directory.** 
+**For more cool stories, walkthrough, and details about the development of this project, check the _Stories_ directory.**
+
+**YouTube video: ** https://youtu.be/lJduQ1ASNdM
 
 Notes:
 
@@ -61,3 +67,5 @@ Notes:
 • The Harman watermark is a feature from Adobe AIR. Getting a premium license and removing it would cost us over $150.
 
 • Currently, the TCP server is also installed on the local machine. If the game is to be launched in the future, maybe we will have the resources to run a real server.
+
+• In some cases, for certain computers, we found a strange error that we couldn't replicate or document, where, when launching the game for the first time, a spinning orb appears (among other things) and the game won't run. However, it works again if you close everything and try again.
