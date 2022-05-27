@@ -1,0 +1,3 @@
+C:/Users/kidga/Desktop/Informatica/C++ Programming, CodeBlocks Projects/FiiCode 2022/space-bar/space-bar/DLCHandler/cmake-build-debug/CMakeFiles/DLCHandler.dir
+C:/Users/kidga/Desktop/Informatica/C++ Programming, CodeBlocks Projects/FiiCode 2022/space-bar/space-bar/DLCHandler/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/kidga/Desktop/Informatica/C++ Programming, CodeBlocks Projects/FiiCode 2022/space-bar/space-bar/DLCHandler/cmake-build-debug/CMakeFiles/rebuild_cache.dir
