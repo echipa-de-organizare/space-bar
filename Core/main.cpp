@@ -199,9 +199,9 @@ int main()
 //    FreeConsole();
 
     handle_files();
-    int st = read_state();
-    if (st == 0)
-        run_handler();
+//    int st = read_state();
+//    if (st == 0)
+    run_handler();
     hardcode_planets();
     add_dlc_planets();
     next_planet_id = read_planet_id();
