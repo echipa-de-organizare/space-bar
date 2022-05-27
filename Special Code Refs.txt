@@ -1,9 +1,0 @@
-1) The physics handler for movement in space
-    Travel Environment/Travel.fla/mainfun()
-    (If you can't open the .fla file, it's also in Implementation/"Travel main.txt"/mainfun() )
-
-2) The Russian Roulette game
-    End Planet/Gadbuy/main.py/main()
-
-3) The core that handles each file
-    Core/main.cpp/start_planet()
