@@ -32,7 +32,7 @@ int getNumberOfDLCs() {
 
     int number = -2;
     while ((entry = readdir(dp))) {
-        char dirPath[1000];
+        char dirPath[MAX_PATH];
         strcpy(dirPath, path);
         strcat(dirPath, "\\");
         strcat(dirPath, entry->d_name);
