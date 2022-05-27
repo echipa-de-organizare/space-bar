@@ -10,13 +10,14 @@ std::map<int, std::string> working_directories;
 CHAR documents[MAX_PATH];
 HRESULT result = SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, documents);
 std::string path(documents), spacebarlogT(documents), spacebarlogP(documents), spacebarlogS(documents), spacebarlogL(
-        documents);
+        documents), spacebarlogC(documents), spacebarlogDLCD1(documents);
 void handle_files()
 {
     spacebarlogT += "\\spacebarlogT.txt";
     spacebarlogP += "\\spacebarlogP.txt";
     spacebarlogS += "\\spacebarlogS.txt";
     spacebarlogL += "\\spacebarlogL.txt";
+    spacebarlogC += "\\spacebarlogC.txt";
     //time
     std::ifstream fin(spacebarlogT);
     if (!fin.good())
@@ -52,6 +53,16 @@ void handle_files()
         fout.close();
     }
 
+    //cash
+    std::ifstream fin5(spacebarlogC);
+    if (!fin5.good())
+    {
+//        std::cout << "lala";
+        std::ofstream fout(spacebarlogC);
+        fout << "420";
+        fout.close();
+    }
+
 }
 void hardcode_planets()
 {
@@ -69,6 +80,55 @@ void hardcode_planets()
     working_directories.insert(std::pair<int, std::string>(3, empty));
     working_directories.insert(std::pair<int, std::string>(4, empty));
     working_directories.insert(std::pair<int, std::string>(6, empty));
+}
+/*
+ * Blk — Today at 14:15
+    -Verifica ce foldere sunt instalate
+    -[OPTIONAL] Comunica cu coreul ca sa nu lase jocul sa ruleze si sa dea eroare daca lipseste vreun fisier esential (travel, bar, radio, etc)
+    -"spacebarlogDLCT1" Creeaza/ia/muta un fisier text in care scrie despre DLC
+        -TITLUL
+        -Descrierea
+        -minilista cu asseturi noi
+    -Roxana o sa aiba de lucru in core sa gestioneze miscarea catre planetele noi
+    -"spacebarlogDLCD1" Genereaza o planeta noua
+       -numele planetei
+       -IDul planetei
+       -locatia
+       -url catre poza
+       -[]url catre executabil
+    [optional] handlerul sa mute poza in documents
+    -"spacebarlogDLCL" Fisier lista de DLCuri
+    -Muta fisierul cu dialog nou
+ * */
+void add_dlc_planets()
+{
+    spacebarlogDLCD1 += "\\spacebarlogDLCD1.txt";
+    std::ifstream fin(spacebarlogDLCD1);
+    while (!fin.good())
+    {
+        fin.open(spacebarlogDLCD1);
+    }
+    if (fin.good())
+    {
+        std::string nume;
+        std::string idstring;
+        std::string locatie;
+        std::string urlpoza;
+        std::string urlexecutabil;
+
+        std::getline(fin, nume);
+        std::getline(fin, idstring);
+        std::getline(fin, locatie);
+        std::getline(fin, urlpoza);
+        std::getline(fin, urlexecutabil);
+
+        int id = atoi(idstring.c_str());
+        planets.insert(std::pair<int, std::string>(id, urlexecutabil));
+        std::string empty;
+        working_directories.insert(std::pair<int, std::string>(id, empty));
+
+        fin.close();
+    }
 }
 std::string get_planet_path(int id)
 {
@@ -115,7 +175,8 @@ void reset_planet_id()
 }
 void start_planet(int id)
 {
-    auto res = ShellExecute(nullptr, "open", get_planet_path(id).c_str(), nullptr, get_dir_path(id).c_str(),SW_SHOWDEFAULT);
+    auto res = ShellExecute(nullptr, "open", get_planet_path(id).c_str(), nullptr, get_dir_path(id).c_str(),
+                            SW_SHOWDEFAULT);
     std::cout << res << "\n";
 //    STARTUPINFO si = { sizeof(STARTUPINFO) };
 //    si.cb = sizeof(si);
@@ -124,14 +185,25 @@ void start_planet(int id)
 //    PROCESS_INFORMATION pi;
 //    CreateProcess(get_planet_path(id).c_str(), NULL , NULL, NULL, FALSE, CREATE_NO_WINDOW , NULL, get_dir_path(id).c_str(), &si, &pi);
 }
+void run_handler()
+{
+    auto res = ShellExecute(nullptr, "open", "DLCHandler.exe", nullptr, "DLCHandler\\cmake-build-debug",
+                            SW_SHOWDEFAULT);
+    std::cout << res << "\n";
+}
 int main()
 {
     //run core in background: either one of these lines
-    ShowWindow (GetConsoleWindow(), SW_HIDE);
+    //todo: remember to decomment
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
 //    FreeConsole();
-    handle_files();
 
+    handle_files();
+    int st = read_state();
+    if (st == 0)
+        run_handler();
     hardcode_planets();
+    add_dlc_planets();
     next_planet_id = read_planet_id();
     start_planet(next_planet_id);
     while (true)
