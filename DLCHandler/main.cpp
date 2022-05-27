@@ -178,6 +178,20 @@ void printDLCList(int numberOfDLCs, bool planetCorrectlyGenerated[]) {
     spacebarlogDLCL = documents;
     spacebarlogDLCL += "\\spacebarlogDLCL.txt";
 
+    std::queue<std::string> states;
+
+    std::ifstream fin(spacebarlogDLCL);
+    if (fin.good()) {
+        int lineNumber = 1;
+        std::string line;
+        while (std::getline(fin, line)) {
+            if (lineNumber % 2 && lineNumber != 1) {
+                states.push(line);
+            }
+            ++lineNumber;
+        }
+    }
+
     std::ofstream fout(spacebarlogDLCL);
     fout << numberOfDLCs << "\n";
 
@@ -198,6 +212,12 @@ void printDLCList(int numberOfDLCs, bool planetCorrectlyGenerated[]) {
                 planetCorrectlyGenerated[i] = false;
             }
             fout << planetName << "\n";
+            if (states.empty()) {
+                fout << "0\n";
+            } else {
+                fout << states.front() << "\n";
+                states.pop();
+            }
         }
     }
 
