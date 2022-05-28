@@ -7,6 +7,7 @@ import flash.filesystem.File;
 import flash.desktop.NativeApplication;
 
 stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+//stage.quality = StageQuality.BEST;
 
 spacebg.x = 0;
 spacebg.y = 0;
@@ -63,6 +64,7 @@ checkIntro();
 var shipCalled: Boolean = false;
 
 popupenv.gotoAndStop(1);
+newplanetpopup.gotoAndStop(1);
 
 spacebar.x = 1100;
 spacebar.y = 500;
@@ -79,7 +81,6 @@ spacegad.y = 6969;
 //spacebh.x = 10000;
 //spacebh.y = 10000;
 
-setPosition();
 
 var countDLC: int = 0;
 countDLC = readCountDLC();
@@ -90,6 +91,29 @@ var downLimit: int = 180;
 var currentScore: int = 0;
 
 var myChannel: SoundChannel = new SoundChannel();
+
+var dlc1name: String;
+var dlc2name: String;
+var dlc3name: String;
+var dlc4name: String;
+var dlc5name: String;
+
+var dlc1id: int;
+var dlc2id: int;
+var dlc3id: int;
+var dlc4id: int;
+var dlc5id: int;
+
+var dlc1x: int, dlc1y: int;
+var dlc2x: int, dlc2y: int;
+var dlc3x: int, dlc3y: int;
+var dlc4x: int, dlc4y: int;
+var dlc5x: int, dlc5y: int;
+
+loadFullDLC();
+
+
+setPosition();
 
 function mainFun(e: Event) {
 	handleTime();
@@ -241,6 +265,17 @@ function mainFun(e: Event) {
 		spacegad.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
 		spacebh.x += currentSpeed * parallax * Math.sin((currentAngle - 180) * Math.PI / 180);
 		spacebh.y += currentSpeed * parallax * Math.cos((currentAngle - 180) * Math.PI / 180);
+		
+		newPlanet1.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		newPlanet1.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
+		newPlanet2.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		newPlanet2.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
+		newPlanet3.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		newPlanet3.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
+		newPlanet4.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		newPlanet4.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
+		newPlanet5.x += currentSpeed * Math.sin((currentAngle - 180) * Math.PI / 180);
+		newPlanet5.y += currentSpeed * Math.cos((currentAngle - 180) * Math.PI / 180);
 	} else {
 		spacebg.x += currentSpeed * parallax * Math.sin((currentAngle + 90) * Math.PI / 180);
 		spacebg.y += currentSpeed * parallax * Math.cos((currentAngle + 90) * Math.PI / 180);
@@ -256,6 +291,18 @@ function mainFun(e: Event) {
 		spacegad.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
 		spacebh.x += currentSpeed * parallax * Math.sin((currentAngle + 90) * Math.PI / 180);
 		spacebh.y += currentSpeed * parallax * Math.cos((currentAngle + 90) * Math.PI / 180);
+		
+		newPlanet1.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		newPlanet1.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		newPlanet2.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		newPlanet2.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		newPlanet3.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		newPlanet3.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		newPlanet4.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		newPlanet4.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		newPlanet5.x += currentSpeed * Math.sin((currentAngle + 90) * Math.PI / 180);
+		newPlanet5.y += currentSpeed * Math.cos((currentAngle + 90) * Math.PI / 180);
+		
 	}
 
 	if (Math.sqrt((guy.x - vehicle.x) * (guy.x - vehicle.x) + (guy.y - vehicle.y) * (guy.y - vehicle.y)) <= 200 || insideCar == true) {
@@ -332,6 +379,23 @@ function mainFun(e: Event) {
 		popupenv.gotoAndStop(1);
 	}
 
+
+	if (Math.sqrt((guy.x - newPlanet1.x) * (guy.x - newPlanet1.x) + (guy.y - newPlanet1.y) * (guy.y - newPlanet1.y)) <= 350 && insideCar == false && countDLC >= 1) {
+		newplanetpopup.gotoAndStop(2);
+		newplanetpopup.popupdyntext.text = "[Enter] enter " + dlc1name;
+	} else if (Math.sqrt((vehicle.x - newPlanet1.x) * (vehicle.x - newPlanet1.x) + (vehicle.y - newPlanet1.y) * (vehicle.y - newPlanet1.y)) <= 350 && insideCar && countDLC >= 1) {
+		newplanetpopup.gotoAndStop(2);
+		newplanetpopup.popupdyntext.text = "[Enter] enter " + dlc1name;
+	} else if (Math.sqrt((guy.x - newPlanet2.x) * (guy.x - newPlanet2.x) + (guy.y - newPlanet2.y) * (guy.y - newPlanet2.y)) <= 350 && insideCar == false && countDLC >= 2) {
+		newplanetpopup.gotoAndStop(3);
+		newplanetpopup.popupdyntext.text = "[Enter] enter " + dlc2name;
+	} else if (Math.sqrt((vehicle.x - newPlanet2.x) * (vehicle.x - newPlanet2.x) + (vehicle.y - newPlanet2.y) * (vehicle.y - newPlanet2.y)) <= 350 && insideCar && countDLC >= 2) {
+		newplanetpopup.gotoAndStop(3);
+		newplanetpopup.popupdyntext.text = "[Enter] enter " + dlc2name;
+	} else if (newplanetpopup.currentFrame > 1) {
+		newplanetpopup.gotoAndStop(1);
+	}
+
 	if (Math.sqrt((guy.x - spacebh.x) * (guy.x - spacebh.x) + (guy.y - spacebh.y) * (guy.y - spacebh.y)) <= 650 && insideCar == false) {
 		secondsElapsed += 1;
 	}
@@ -361,7 +425,7 @@ function pressMultipleKeys(evt0: KeyboardEvent) {
 		backOn = true;
 	} else if (evt0.keyCode == 13 || evt0.keyCode == 32) {
 		if (insideCar) { //get out
-			if (popupenv.currentFrame == 1) {
+			if (popupenv.currentFrame == 1 && newplanetpopup.currentFrame == 1) {
 				insideCar = false;
 				guy.visible = true;
 				guy.x = (middleX + vehicle.x * 3) / 4;
@@ -373,9 +437,13 @@ function pressMultipleKeys(evt0: KeyboardEvent) {
 				enterRadio();
 			} else if (popupenv.currentFrame == 5) {
 				enterGad();
+			} else if (newplanetpopup.currentFrame == 2){
+				enterdlc1();
+			} else if (newplanetpopup.currentFrame == 3){
+				enterdlc2();
 			}
 		} else { // get in
-			if (popupenv.currentFrame == 2) {
+			if (popupenv.currentFrame == 2 && newplanetpopup.currentFrame == 1) {
 				insideCar = true;
 				guy.visible = false;
 				vehicle.gotoAndPlay(1);
@@ -385,6 +453,10 @@ function pressMultipleKeys(evt0: KeyboardEvent) {
 				enterRadio();
 			} else if (popupenv.currentFrame == 5) {
 				enterGad();
+			} else if (newplanetpopup.currentFrame == 2){
+				enterdlc1();
+			} else if (newplanetpopup.currentFrame == 3){
+				enterdlc2();
 			}
 		}
 	}
@@ -679,7 +751,7 @@ function setPosition() {
 }
 
 function modifyPosition(toX: int, toY: int) {
-	//trace(toX, toY);
+	trace(toX, toY);
 	spacebg.x += toX * parallax;
 	spacebg.y += toY * parallax;
 	spacebar.x += toX;
@@ -692,6 +764,17 @@ function modifyPosition(toX: int, toY: int) {
 	spacegad.y += toY;
 	spacebh.x += toX * parallax;
 	spacebh.y += toY * parallax;
+	
+	newPlanet1.x += toX;
+	newPlanet1.y += toY;
+	newPlanet2.x += toX;
+	newPlanet2.y += toY;
+	newPlanet3.x += toX;
+	newPlanet3.y += toY;
+	newPlanet4.x += toX;
+	newPlanet4.y += toY;
+	newPlanet5.x += toX;
+	newPlanet5.y += toY;
 }
 
 function readCountDLC() {
@@ -908,4 +991,201 @@ function handleMiniGame() {
 		fullScore = String(currentScore); 
 	}
 	spacePhone.spacegamefull.gamescore.text = "Score: " + fullScore;
+}
+
+function loadPicture(){
+	var file: File = File.documentsDirectory;
+	var loader:Loader = new Loader();
+	loader.load(new URLRequest(file.nativePath + "/bait.png"));
+	newPlanet1.addChild(loader);
+	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+	function loaderComplete(e:Event):void {
+		loader.content.x = loader.width/(-2);
+		loader.content.y = loader.height/(-2);
+		loader.content.width /= 2;
+		loader.content.height /= 2;
+	}
+}
+
+function loadDLC1(){
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCD1.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	dlc1name = String(myArrayOfLines[0]).slice(0, -1);
+	var picturePath: String;
+	picturePath = String(myArrayOfLines[3]).slice(0, -1);
+	dlc1x = int(myArrayOfLines[2].split(' ')[0]);
+	dlc1y = int(myArrayOfLines[2].split(' ')[1]);
+	var loader:Loader = new Loader();
+	loader.load(new URLRequest(picturePath));
+	newPlanet1.addChild(loader);
+	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+	function loaderComplete(e:Event):void {
+		loader.content.x = loader.width/2;
+		loader.content.y = loader.height/(-2);
+	}
+	dlc1id = int(myArrayOfLines[1]);
+	newPlanet1.visible = true;
+	newPlanet1.x = dlc1x;
+	newPlanet1.y = dlc1y;
+}
+
+function loadDLC2(){
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCD2.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	dlc2name = String(myArrayOfLines[0]).slice(0, -1);
+	var picturePath: String;
+	picturePath = String(myArrayOfLines[3]).slice(0, -1);
+	dlc2x = int(myArrayOfLines[2].split(' ')[0]);
+	dlc2y = int(myArrayOfLines[2].split(' ')[1]);
+	var loader:Loader = new Loader();
+	loader.load(new URLRequest(picturePath));
+	newPlanet2.addChild(loader);
+	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+	function loaderComplete(e:Event):void {
+		loader.content.x = loader.width/2;
+		loader.content.y = loader.height/(-2);
+	}
+	dlc2id = int(myArrayOfLines[1]);
+	newPlanet2.visible = true;
+	newPlanet2.x = dlc1x;
+	newPlanet2.y = dlc1y;
+}
+
+function loadDLC3(){
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCD3.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	dlc3name = String(myArrayOfLines[0]).slice(0, -1);
+	var picturePath: String;
+	picturePath = String(myArrayOfLines[3]).slice(0, -1);
+	dlc3x = int(myArrayOfLines[2].split(' ')[0]);
+	dlc3y = int(myArrayOfLines[2].split(' ')[1]);
+	var loader:Loader = new Loader();
+	loader.load(new URLRequest(picturePath));
+	newPlanet3.addChild(loader);
+	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+	function loaderComplete(e:Event):void {
+		loader.content.x = loader.width/2;
+		loader.content.y = loader.height/(-2);
+	}
+	dlc3id = int(myArrayOfLines[1]);
+	newPlanet3.visible = true;
+	newPlanet3.x = dlc1x;
+	newPlanet3.y = dlc1y;
+}
+
+function loadDLC4(){
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCD4.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	dlc4name = String(myArrayOfLines[0]).slice(0, -1);
+	var picturePath: String;
+	picturePath = String(myArrayOfLines[3]).slice(0, -1);
+	dlc4x = int(myArrayOfLines[2].split(' ')[0]);
+	dlc4y = int(myArrayOfLines[2].split(' ')[1]);
+	var loader:Loader = new Loader();
+	loader.load(new URLRequest(picturePath));
+	newPlanet4.addChild(loader);
+	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+	function loaderComplete(e:Event):void {
+		loader.content.x = loader.width/2;
+		loader.content.y = loader.height/(-2);
+	}
+	dlc4id = int(myArrayOfLines[1]);
+	newPlanet4.visible = true;
+	newPlanet4.x = dlc1x;
+	newPlanet4.y = dlc1y;
+}
+
+function loadDLC5(){
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCD5.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	dlc5name = String(myArrayOfLines[0]).slice(0, -1);
+	var picturePath: String;
+	picturePath = String(myArrayOfLines[3]).slice(0, -1);
+	dlc5x = int(myArrayOfLines[2].split(' ')[0]);
+	dlc5y = int(myArrayOfLines[2].split(' ')[1]);
+	var loader:Loader = new Loader();
+	loader.load(new URLRequest(picturePath));
+	newPlanet5.addChild(loader);
+	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+	function loaderComplete(e:Event):void {
+		loader.content.x = loader.width/2;
+		loader.content.y = loader.height/(-2);
+	}
+	dlc5id = int(myArrayOfLines[1]);
+	newPlanet5.visible = true;
+	newPlanet5.x = dlc1x;
+	newPlanet5.y = dlc1y;
+}
+
+function loadFullDLC(){
+	newPlanet1.visible = false;
+	newPlanet2.visible = false;
+	newPlanet3.visible = false;
+	newPlanet4.visible = false;
+	newPlanet5.visible = false;
+	if (countDLC >= 1){
+		loadDLC1();
+	}
+	if (countDLC >= 2){
+		loadDLC2();
+	}
+	if (countDLC >= 3){
+		loadDLC3();
+	}
+	if (countDLC >= 4){
+		loadDLC4();
+	}
+	if (countDLC >= 5){
+		loadDLC5();
+	}
+}
+
+function enterdlc1(){
+	writeHour();
+	//trace("gad");
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogP.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes(String(dlc1id));
+	stream.close();
+
+	printPosition();
+
+	NativeApplication.nativeApplication.exit();
+}
+
+function enterdlc2(){
+	writeHour();
+	//trace("gad");
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogP.txt");
+	var stream: FileStream = new FileStream();
+	stream.open(file, FileMode.WRITE);
+	stream.writeUTFBytes(String(dlc2id));
+	stream.close();
+
+	printPosition();
+
+	NativeApplication.nativeApplication.exit();
 }
