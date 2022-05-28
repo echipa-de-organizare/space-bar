@@ -1,0 +1,5 @@
+jojo
+7
+0 -1000
+C:\Users\flanco\Documents\jojo.png
+..\..\DLCs\WARPER\Planet\jojo.exe
