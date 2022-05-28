@@ -10,14 +10,13 @@ std::map<int, std::string> working_directories;
 CHAR documents[MAX_PATH];
 HRESULT result = SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, documents);
 std::string path(documents), spacebarlogT(documents), spacebarlogP(documents), spacebarlogS(documents), spacebarlogL(
-        documents), spacebarlogC(documents), spacebarlogDLCD1(documents);
+        documents), spacebarlogDLCD1(documents);
 void handle_files()
 {
     spacebarlogT += "\\spacebarlogT.txt";
     spacebarlogP += "\\spacebarlogP.txt";
     spacebarlogS += "\\spacebarlogS.txt";
     spacebarlogL += "\\spacebarlogL.txt";
-    spacebarlogC += "\\spacebarlogC.txt";
     //time
     std::ifstream fin(spacebarlogT);
     if (!fin.good())
@@ -50,16 +49,6 @@ void handle_files()
 //        std::cout << "lala";
         std::ofstream fout(spacebarlogL);
         fout << "0\n0";
-        fout.close();
-    }
-
-    //cash
-    std::ifstream fin5(spacebarlogC);
-    if (!fin5.good())
-    {
-//        std::cout << "lala";
-        std::ofstream fout(spacebarlogC);
-        fout << "420";
         fout.close();
     }
 

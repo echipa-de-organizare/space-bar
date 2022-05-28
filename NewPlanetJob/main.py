@@ -29,8 +29,8 @@ def place_bg():
 def place_line(mousex, mousey):
     line = pygame.image.load("Resources/resourcesnewplanetjob/line.png")
     x, y = screen.get_size()
-    bait = pygame.transform.scale(line, (ceil(0.01 * line.get_size()[0]), mousey))
-    return screen.blit(bait, (ceil(0.4569 * x), (ceil(0.05 * y))))
+    line = pygame.transform.scale(line, (ceil(0.01 * line.get_size()[0]), mousey))
+    return screen.blit(line, (ceil(0.4569 * x), (ceil(0.05 * y))))
 
 
 def place_bait(mousex, mousey):
@@ -112,11 +112,23 @@ spacebarlogT = os.path.expanduser("~\\Documents\\spacebarlogT.txt")
 spacebarlogP = os.path.expanduser("~\\Documents\\spacebarlogP.txt")
 spacebarlogS = os.path.expanduser("~\\Documents\\spacebarlogS.txt")
 spacebarlogL = os.path.expanduser("~\\Documents\\spacebarlogL.txt")
+spacebarlogDLCL = os.path.expanduser("~\\Documents\\spacebarlogDLCL.txt")
 
 
 def write_to_next_planet_file():
     with open(spacebarlogP, "w") as f:
         f.write(str(1))
+    content = ""
+    last_val = ""
+    with open(spacebarlogDLCL, "r") as f:
+        for line in f:
+            if last_val == "WARPER\n":
+                content += "1\n"
+            else:
+                content += line
+            last_val = line
+    with open(spacebarlogDLCL, "w") as f:
+        f.write(content)
 
 
 def write_state(state):
@@ -136,17 +148,73 @@ cash = 0
 
 def gimme_my_cash():
     pygame.font.init()
-    font = pygame.font.SysFont("Trebuchet MS", 25)
-    cash_text = font.render("Cash: " + str(cash), True, BLACK)
+    font = pygame.font.SysFont("Candara", 30, bold=True)
+    cash_text = font.render("Cash: " + str(cash) + "/420", True, BLACK)
     placement = (100, 100)
     screen.blit(cash_text, placement)
 
 
+def place_earned_enough():
+    x, y = screen.get_size()
+    surface = pygame.Surface((x, y))
+    surface.fill(BLACK)
+    surface.set_alpha(200)
+    screen.blit(surface, (0, 0))
+
+    surface = pygame.Surface((ceil(0.5 * x), ceil(0.5 * y)))
+    surface.fill(WHITE)
+    surface.set_alpha(250)
+    screen.blit(surface, (ceil(0.25 * x), ceil(0.25 * y)))
+
+    pygame.font.init()
+    font = pygame.font.SysFont("Candara", 50, bold=True)
+    final_text = font.render("You have earned enough money.", True, BLACK)
+    text_rect = final_text.get_rect(center=(x / 2, ceil(0.37 * y)))
+    screen.blit(final_text, text_rect)
+
+    final_text = font.render("You can now go back.", True, BLACK)
+    text_rect = final_text.get_rect(center=(x / 2, ceil(0.47 * y)))
+    screen.blit(final_text, text_rect)
+
+    final_text = font.render("Congrats!", True, BLACK)
+    text_rect = final_text.get_rect(center=(x / 2, ceil(0.57 * y)))
+    screen.blit(final_text, text_rect)
+
+
+def place_intro():
+    x, y = screen.get_size()
+    surface = pygame.Surface((x, y))
+    surface.fill(BLACK)
+    surface.set_alpha(200)
+    screen.blit(surface, (0, 0))
+
+    surface = pygame.Surface((ceil(0.5 * x), ceil(0.5 * y)))
+    surface.fill(WHITE)
+    surface.set_alpha(250)
+    screen.blit(surface, (ceil(0.25 * x), ceil(0.25 * y)))
+
+    pygame.font.init()
+    font = pygame.font.SysFont("Candara", 50, bold=True)
+    final_text = font.render("You warped to a new dimension", True, BLACK)
+    text_rect = final_text.get_rect(center=(x / 2, ceil(0.37 * y)))
+    screen.blit(final_text, text_rect)
+
+    final_text = font.render("and you have no more fuel.", True, BLACK)
+    text_rect = final_text.get_rect(center=(x / 2, ceil(0.47 * y)))
+    screen.blit(final_text, text_rect)
+
+    final_text = font.render("You need money for fuel, ", True, BLACK)
+    text_rect = final_text.get_rect(center=(x / 2, ceil(0.57 * y)))
+    screen.blit(final_text, text_rect)
+
+    final_text = font.render("so work for it!", True, BLACK)
+    text_rect = final_text.get_rect(center=(x / 2, ceil(0.67 * y)))
+    screen.blit(final_text, text_rect)
+
+
 # background space music
-# todo: uncomment bgmusic
-# background_music = pygame.mixer.Channel(0)
-# background_music.play(pygame.mixer.Sound("Resources/resourcesnewplanetjob/bgmusic.mp3"), loops=-1, fade_ms=5000)
-# background_music.set_volume(0)
+background_music = pygame.mixer.Channel(0)
+background_music.play(pygame.mixer.Sound("Resources/resourcesnewplanetjob/bgmusic.mp3"), loops=-1, fade_ms=5000)
 
 # # opencv2
 x, y = screen.get_size()
@@ -178,7 +246,7 @@ def check_caught_fish_up(mousex, mousey):
     global cash, caught
     if caught and mousey <= 60:
         caught = False
-        cash += 20
+        cash += 35
 
 
 def place_all_obstacles():
@@ -222,15 +290,9 @@ def check_obstacle_hitting(mousex, mousey):
             i += 1
 
 
+won = False
 if __name__ == '__main__':
     running = True
-    arr_index = 0
-    y_pos = ceil(0.75 * screen.get_size()[1])
-
-    show_good, show_perfect, show_bad, show_wrong, arrow_state = False, False, False, False, 0
-    score, score_put, score_villain = 0, False, 0
-    dec_index = False
-    END_IT_ALL = False
 
     WON = pygame.USEREVENT + 3
 
@@ -242,18 +304,33 @@ if __name__ == '__main__':
 
     local_start = timeit.default_timer()
     mousex, mousey = 0, 0
+    run_intro = True
     while running:
         random.seed(time.time())
-        # clock.tick(60)
-        y_pos += 8
         place_bg()
         place_line(mousex, mousey)
         place_bait(mousex, mousey)
+
         if caught:
             place_fish_on_rod(mousex, mousey)
         place_all_fish()
         place_all_obstacles()
         gimme_my_cash()
+        if run_intro:
+            place_intro()
+            pygame.display.flip()
+            time.sleep(5)
+            run_intro = False
+        if won:
+            place_earned_enough()
+            pygame.display.flip()
+            time.sleep(5)
+            background_music.stop()
+            write_to_next_planet_file()
+            # write_state(3)
+            # pygame.quit()
+            running = False
+            break
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -266,14 +343,8 @@ if __name__ == '__main__':
                 check_fish_caught(mousex, mousey)
                 check_caught_fish_up(mousex, mousey)
                 check_obstacle_hitting(mousex, mousey)
-            if event.type == WON:
-                # todo: uncomment music
-                # background_music.stop()
-                write_to_next_planet_file()
-                write_state(3)
-                pygame.quit()
-                running = False
-                break
+                if cash >= 420:
+                    won = True
             if event.type == PLACE_FISH:
                 x, y = screen.get_size()
                 r = random.random()
