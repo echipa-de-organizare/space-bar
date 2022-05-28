@@ -16,6 +16,18 @@ Find out what's going on, what mysteries are there hidden, and solve them.**
 
 --
 
+To add DLC Content, just drag and drop your DLC package in the **_DLCs_** Folder.
+Packages are secured so they only work if made by one of our developers.
+However, inside a package, you can change different assets, if you wish. The Game itself will handle the change of assets on its own, you don't have to do anything.
+To remove DLC Content, just remove the folder from the **_DLCs_** Folder.
+Inside a DLC package you can find the following assets:
+  •  New Dialogue options for the radio (As an XML which whill install itself)
+  •  A new planet to find in space, with new coordinates and graphics, provided in the DLC
+  •  A whole new quest, presented as an executable, with new adventures
+  •  A reward, such as a minigame you can play on your phone, which can only be accessed after finishing the quest.
+
+--
+
 
 
 About the development:
