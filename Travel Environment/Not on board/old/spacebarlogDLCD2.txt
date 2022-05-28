@@ -1,0 +1,5 @@
+Planet2
+8
+300 300
+C:\Users\flanco\Documents\Planet2.png
+..\..\DLCs\xtraDLCName\Planet\Planet2.exe
