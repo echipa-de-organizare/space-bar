@@ -77,6 +77,7 @@ All the pictures and sounds used are under CC0 - Creative Commons.
 **For more cool stories, walkthrough, and details about the development of this project, check the _Stories_ directory.**
 
 **YouTube video:** https://youtu.be/lJduQ1ASNdM
+**YouTube video for DLC:** https://youtu.be/WPo2rfluZKI
 
 Notes:
 
