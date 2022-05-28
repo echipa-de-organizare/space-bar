@@ -26,7 +26,7 @@
                                                                               text="Gadbuy put this mechanism in place in order to advance technologically faster than others, so that he could conquer the universe.">
                                                                         <option id="211" text="How can we stop him?">
                                                                             <question id="220"
-                                                                                      text="First, you need to find his ship. It's located at (0,0), with the relative code 8253FJ.">
+                                                                                      text="First, you need to find his ship. It's located at (0, -2000), with the relative code 8253FJ.">
                                                                                 <option id="221" text="And then?">
                                                                                     <question id="240"
                                                                                               text="Then, I heard about some code sequence that needs to be entered to stop the machine. That's all I know.">

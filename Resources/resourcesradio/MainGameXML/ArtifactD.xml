@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <story>
-    <question id="100" text="Beep boop beep boop...">
+    <question id="100" text="Bep bop bep bop...">
         <option id="101" text="[Turn on Radio]">
             <question id="110"
                       text="Uryyb. Guvf vf na nhgbzngvpnyyl frag qvfgerff zrffntr. Vs lbh pbcl, cyrnfr erfcbaq. Uryyb. Guvf vf na nhgbzngvpnyyl fraq qvfge...">
@@ -26,7 +26,7 @@
                                                                               text="Gadbuy put this mechanism in place in order to advance technologically faster than others, so that he could conquer the universe.">
                                                                         <option id="211" text="How can we stop him?">
                                                                             <question id="220"
-                                                                                      text="First, you need to find his ship. It's located at (0, -2000), with the relative code 8253FJ.">
+                                                                                      text="First, you need to find his ship. It's located at (0,0), with the relative code 8253FJ.">
                                                                                 <option id="221" text="And then?">
                                                                                     <question id="240"
                                                                                               text="Then, I heard about some code sequence that needs to be entered to stop the machine. That's all I know.">
@@ -86,48 +86,7 @@
                                                         <option id="171" text="[Leave]">blank</option>
                                                     </question>
                                                 </option>
-												<option id="162" text="But people in movies do it all the time.">
-                                                    <question id="270" text="Last time I checked, life wasn't a movie.">
-                                                        <option id="271" text="Have you tried just accelerating really really hard?">
-                                                            <question id="290" text="We have. There's no way out of here. Unless...">
-																<option id="291" text="Unless...?">
-																	<question id="300" text="Unless there's a WARPER around.">
-																		<option id="301" text="WARPER?">
-																			<question id="320" text="Yes. It's a portal to another dimension.">
-																				<option id="321" text="So you have a way out!">
-																					<question id="330" text="I've only ever seen one, located at (0,0) with the relative code DA24632C. They have a 0.00000601% chance of appearing in a given spot.">
-																						<option id="331" text="I hope you get lucky and find one out there.">
-																							<question id="340" text="Thanks. And goodbye!">
-																								<option id="341" text="[Leave]">blank</option>
-																							</question>
-																						</option>
-																					</question>
-																				</option>
-																			</question>
-																		</option>
-																		
-																		<option id="302" text="Have you ever seen one?">
-																			<question id="330" text="up">blank</question>
-																		</option>
-																		
-																		<option id="303" text="Chicken WRAP from SpaceDonalds?">
-																			<question id="310" text="You're wasting my time. Goodbye!">
-																				<option id="311" text="[Leave]">blank</option>
-																			</question>
-																		</option>
-																	</question>
-																</option>
-															</question>
-                                                        </option>
-														<option id="272" text="Yes it is! It has 6.6/10 on IMDb">
-                                                            <question id="280" text="Haha. Real funny. Goodbye! Jung na vqvbg!">
-																<option id="281" text="[Leave]">blank</option>
-															</question>
-                                                        </option>
-														
-                                                    </question>
-                                                </option>
-                                                <option id="163" text="[Leave]">blank</option>
+                                                <option id="162" text="[Leave]">blank</option>
                                             </question>
                                         </option>
                                     </question>

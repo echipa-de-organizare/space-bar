@@ -296,6 +296,27 @@ void generatePlanets(int numberOfDLCs, int startingID) {
     printDLCList(numberOfDLCs, planetCorrectlyGenerated);
 }
 
+void moveXML(int numberOfDLCs)
+{
+    std::string destinationPath, planetPath, sourcePath;
+    destinationPath = "..\\..\\Resources\\resourcesradio\\ArtifactD.xml";
+    for (int i = 1; i <= numberOfDLCs; ++i) {
+        if (authorizedDLC[i]) {
+            planetPath = getPlanetPath(DLC_FOLDER_PATH, i);
+            sourcePath = planetPath + "\\ArtifactD.xml";
+            if (!CopyFileA(sourcePath.c_str(), destinationPath.c_str(), FALSE) ) {
+                perror("Could not copy XML");
+            } else {
+                return;
+            }
+        }
+    }
+    sourcePath = "..\\..\\Resources\\resourcesradio\\MainGameXML\\ArtifactD.xml";
+    if (!CopyFileA(sourcePath.c_str(), destinationPath.c_str(), FALSE) ) {
+        perror("Could not copy original XML");
+    }
+}
+
 int main() {
     ShowWindow(GetConsoleWindow(), SW_HIDE);
     SHGetFolderPathA(nullptr, CSIDL_PERSONAL, NULL, 0, documents);
@@ -303,5 +324,6 @@ int main() {
     int numberOfDLCs = checkDLCs();
     copyDLCDetails(numberOfDLCs);
     generatePlanets(numberOfDLCs, STARTING_PLANET_ID);
+    moveXML(numberOfDLCs);
     return 0;
 }

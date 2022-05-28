@@ -6,7 +6,6 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.20"
@@ -49,12 +48,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/ztr53/Documents/GitHub/space-bar/DLCHandler/cmake-build-debug",
-		"source" : "C:/Users/ztr53/Documents/GitHub/space-bar/DLCHandler"
+		"build" : "C:/Users/kidga/Desktop/Informatica/C++ Programming, CodeBlocks Projects/FiiCode 2022/space-bar/space-bar/DLCHandler/cmake-build-debug",
+		"source" : "C:/Users/kidga/Desktop/Informatica/C++ Programming, CodeBlocks Projects/FiiCode 2022/space-bar/space-bar/DLCHandler"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 3
+		"minor" : 2
 	}
 }
