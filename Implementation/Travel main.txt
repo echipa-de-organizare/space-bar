@@ -81,6 +81,16 @@ spacegad.y = 6969;
 
 setPosition();
 
+var countDLC: int = 0;
+countDLC = readCountDLC();
+
+var miniGameEnabled: int = 0;
+miniGameEnabled = enableMiniGame();
+var downLimit: int = 180;
+var currentScore: int = 0;
+
+var myChannel: SoundChannel = new SoundChannel();
+
 function mainFun(e: Event) {
 	handleTime();
 	if (insideCar) { //inside car
@@ -259,18 +269,18 @@ function mainFun(e: Event) {
 	}
 
 	try {
-		if (insideCar == false){
+		if (insideCar == false) {
 			spacePhone.shipDistance.text = Math.sqrt((guy.x - vehicle.x) * (guy.x - vehicle.x) + (guy.y - vehicle.y) * (guy.y - vehicle.y));
 		} else {
 			spacePhone.shipDistance.text = "00.00";
 		}
-		} catch (e: Error) {
+	} catch (e: Error) {
 		1;
 	}
 
 	try {
-		if (location == "bar"){
-			if (insideCar){
+		if (location == "bar") {
+			if (insideCar) {
 				spacePhone.locationX.text = "X: " + int(vehicle.x - spacebar.x);
 				spacePhone.locationY.text = "Y: " + int(vehicle.y - spacebar.y);
 				spacePhone.locationR.text = "α:" + int((-1 * vehicle.rotation + 180) % 360) + "°";
@@ -279,8 +289,8 @@ function mainFun(e: Event) {
 				spacePhone.locationY.text = "Y: " + int(guy.y - spacebar.y);
 				spacePhone.locationR.text = "α:" + int(guy.rotation) + "°";;
 			}
-		} else if (location == "gad"){
-			if (insideCar){
+		} else if (location == "gad") {
+			if (insideCar) {
 				spacePhone.locationX.text = "X: " + int(vehicle.x - spacegad.x);
 				spacePhone.locationY.text = "Y: " + int(vehicle.y - spacegad.y);
 				spacePhone.locationR.text = "α:" + int((-1 * vehicle.rotation + 180) % 360) + "°";
@@ -290,7 +300,7 @@ function mainFun(e: Event) {
 				spacePhone.locationR.text = "α:" + int(guy.rotation) + "°";;
 			}
 		} else {
-			if (insideCar){
+			if (insideCar) {
 				spacePhone.locationX.text = "X: " + "?";
 				spacePhone.locationY.text = "Y: " + "?";
 				spacePhone.locationR.text = "α:" + int((-1 * vehicle.rotation + 180) % 360) + "°";;
@@ -300,33 +310,39 @@ function mainFun(e: Event) {
 				spacePhone.locationR.text = "α:" + int(guy.rotation) + "°";;
 			}
 		}
-	} catch (e: Error){
+	} catch (e: Error) {
 		1;
 	}
 
-	if (Math.sqrt((guy.x - vehicle.x) * (guy.x - vehicle.x) + (guy.y - vehicle.y) * (guy.y - vehicle.y)) <= 200 && insideCar == false){
+	if (Math.sqrt((guy.x - vehicle.x) * (guy.x - vehicle.x) + (guy.y - vehicle.y) * (guy.y - vehicle.y)) <= 200 && insideCar == false) {
 		popupenv.gotoAndStop(2);
-	} else if (Math.sqrt((guy.x - spacebar.x) * (guy.x - spacebar.x) + (guy.y - spacebar.y) * (guy.y - spacebar.y)) <= 650 && insideCar == false){
+	} else if (Math.sqrt((guy.x - spacebar.x) * (guy.x - spacebar.x) + (guy.y - spacebar.y) * (guy.y - spacebar.y)) <= 650 && insideCar == false) {
 		popupenv.gotoAndStop(3);
-	} else if (Math.sqrt((vehicle.x - spacebar.x) * (vehicle.x - spacebar.x) + (vehicle.y - spacebar.y) * (vehicle.y - spacebar.y)) <= 650 && insideCar){
+	} else if (Math.sqrt((vehicle.x - spacebar.x) * (vehicle.x - spacebar.x) + (vehicle.y - spacebar.y) * (vehicle.y - spacebar.y)) <= 650 && insideCar) {
 		popupenv.gotoAndStop(3);
-	} else if (Math.sqrt((guy.x - spaceradio.x) * (guy.x - spaceradio.x) + (guy.y - spaceradio.y) * (guy.y - spaceradio.y)) <= 750 && insideCar == false){
+	} else if (Math.sqrt((guy.x - spaceradio.x) * (guy.x - spaceradio.x) + (guy.y - spaceradio.y) * (guy.y - spaceradio.y)) <= 750 && insideCar == false) {
 		popupenv.gotoAndStop(4);
-	} else if (Math.sqrt((vehicle.x - spaceradio.x) * (vehicle.x - spaceradio.x) + (vehicle.y - spaceradio.y) * (vehicle.y - spaceradio.y)) <= 750 && insideCar){
+	} else if (Math.sqrt((vehicle.x - spaceradio.x) * (vehicle.x - spaceradio.x) + (vehicle.y - spaceradio.y) * (vehicle.y - spaceradio.y)) <= 750 && insideCar) {
 		popupenv.gotoAndStop(4);
-	} else if (Math.sqrt((guy.x - spacegad.x) * (guy.x - spacegad.x) + (guy.y - spacegad.y) * (guy.y - spacegad.y)) <= 750 && insideCar == false){
+	} else if (Math.sqrt((guy.x - spacegad.x) * (guy.x - spacegad.x) + (guy.y - spacegad.y) * (guy.y - spacegad.y)) <= 750 && insideCar == false) {
 		popupenv.gotoAndStop(5);
-	} else if (Math.sqrt((vehicle.x - spacegad.x) * (vehicle.x - spacegad.x) + (vehicle.y - spacegad.y) * (vehicle.y - spacegad.y)) <= 750 && insideCar){
+	} else if (Math.sqrt((vehicle.x - spacegad.x) * (vehicle.x - spacegad.x) + (vehicle.y - spacegad.y) * (vehicle.y - spacegad.y)) <= 750 && insideCar) {
 		popupenv.gotoAndStop(5);
-	} else if (popupenv.currentFrame > 1){
+	} else if (popupenv.currentFrame > 1) {
 		popupenv.gotoAndStop(1);
 	}
 
-	if (Math.sqrt((guy.x - spacebh.x) * (guy.x - spacebh.x) + (guy.y - spacebh.y) * (guy.y - spacebh.y)) <= 650 && insideCar == false){
+	if (Math.sqrt((guy.x - spacebh.x) * (guy.x - spacebh.x) + (guy.y - spacebh.y) * (guy.y - spacebh.y)) <= 650 && insideCar == false) {
 		secondsElapsed += 1;
 	}
-	if (Math.sqrt((vehicle.x - spacebh.x) * (vehicle.x - spacebh.x) + (vehicle.y - spacebh.y) * (vehicle.y - spacebh.y)) <= 650 && insideCar){
+	if (Math.sqrt((vehicle.x - spacebh.x) * (vehicle.x - spacebh.x) + (vehicle.y - spacebh.y) * (vehicle.y - spacebh.y)) <= 650 && insideCar) {
 		secondsElapsed += 1;
+	}
+
+	try {
+		handleMiniGame();
+	} catch (e: Error) {
+		1;
 	}
 }
 
@@ -345,17 +361,17 @@ function pressMultipleKeys(evt0: KeyboardEvent) {
 		backOn = true;
 	} else if (evt0.keyCode == 13 || evt0.keyCode == 32) {
 		if (insideCar) { //get out
-			if (popupenv.currentFrame == 1){
+			if (popupenv.currentFrame == 1) {
 				insideCar = false;
 				guy.visible = true;
 				guy.x = (middleX + vehicle.x * 3) / 4;
 				guy.y = (middleY + vehicle.y * 3) / 4;
 				vehicle.gotoAndStop(98);
-			} else if (popupenv.currentFrame == 3){
+			} else if (popupenv.currentFrame == 3) {
 				enterBar();
-			} else if (popupenv.currentFrame == 4){
+			} else if (popupenv.currentFrame == 4) {
 				enterRadio();
-			} else if (popupenv.currentFrame == 5){
+			} else if (popupenv.currentFrame == 5) {
 				enterGad();
 			}
 		} else { // get in
@@ -363,11 +379,11 @@ function pressMultipleKeys(evt0: KeyboardEvent) {
 				insideCar = true;
 				guy.visible = false;
 				vehicle.gotoAndPlay(1);
-			} else if (popupenv.currentFrame == 3){
+			} else if (popupenv.currentFrame == 3) {
 				enterBar();
-			} else if (popupenv.currentFrame == 4){
+			} else if (popupenv.currentFrame == 4) {
 				enterRadio();
-			} else if (popupenv.currentFrame == 5){
+			} else if (popupenv.currentFrame == 5) {
 				enterGad();
 			}
 		}
@@ -396,7 +412,7 @@ function phoneNoGo(event: MouseEvent) {
 	onPhone = false;
 }
 
-function showCredits(){
+function showCredits() {
 	writeHour();
 	//trace("credits");
 	var file: File = File.documentsDirectory;
@@ -405,13 +421,13 @@ function showCredits(){
 	stream.open(file, FileMode.WRITE);
 	stream.writeUTFBytes("6");
 	stream.close();
-	
+
 	printPosition();
-	
+
 	NativeApplication.nativeApplication.exit();
 }
 
-function simpleExit(){
+function simpleExit() {
 	writeHour();
 	//trace("credits");
 	var file: File = File.documentsDirectory;
@@ -420,20 +436,20 @@ function simpleExit(){
 	stream.open(file, FileMode.WRITE);
 	stream.writeUTFBytes("-1");
 	stream.close();
-	
+
 	var file2: File = File.documentsDirectory;
 	file2 = file2.resolvePath("spacebarlogS.txt");
 	var stream2: FileStream = new FileStream();
 	stream2.open(file2, FileMode.WRITE);
 	stream2.writeUTFBytes("1");
 	stream2.close();
-	
+
 	printPosition();
-	
+
 	NativeApplication.nativeApplication.exit();
 }
 
-function enterBar(){
+function enterBar() {
 	writeHour();
 	//trace("bar");
 	var file: File = File.documentsDirectory;
@@ -442,13 +458,13 @@ function enterBar(){
 	stream.open(file, FileMode.WRITE);
 	stream.writeUTFBytes("0");
 	stream.close();
-	
+
 	printPosition();
-	
+
 	NativeApplication.nativeApplication.exit();
 }
 
-function enterGad(){
+function enterGad() {
 	writeHour();
 	//trace("gad");
 	var file: File = File.documentsDirectory;
@@ -457,13 +473,13 @@ function enterGad(){
 	stream.open(file, FileMode.WRITE);
 	stream.writeUTFBytes("3");
 	stream.close();
-	
+
 	printPosition();
-	
+
 	NativeApplication.nativeApplication.exit();
 }
 
-function enterRadio(){
+function enterRadio() {
 	writeHour();
 	//trace("radio");
 	var file: File = File.documentsDirectory;
@@ -472,40 +488,40 @@ function enterRadio(){
 	stream.open(file, FileMode.WRITE);
 	stream.writeUTFBytes("2");
 	stream.close();
-	
+
 	printPosition();
-	
+
 	NativeApplication.nativeApplication.exit();
 }
 
-function resetTime(){
+function resetTime() {
 	var file: File = File.documentsDirectory;
 	file = file.resolvePath("spacebarlogT.txt");
 	var stream: FileStream = new FileStream();
 	stream.open(file, FileMode.WRITE);
 	stream.writeUTFBytes("1");
 	stream.close();
-	
+
 	var file2: File = File.documentsDirectory;
 	file2 = file2.resolvePath("spacebarlogS.txt");
 	var stream2: FileStream = new FileStream();
 	stream2.open(file2, FileMode.WRITE);
 	stream2.writeUTFBytes("2");
 	stream2.close();
-	
+
 	var file3: File = File.documentsDirectory;
 	file3 = file3.resolvePath("spacebarlogL.txt");
 	var stream3: FileStream = new FileStream();
 	stream3.open(file3, FileMode.WRITE);
 	stream3.writeUTFBytes("0\n0");
 	stream3.close();
-	
-	
-	
-	NativeApplication.nativeApplication.exit();	
+
+
+
+	NativeApplication.nativeApplication.exit();
 }
 
-function readHour(){
+function readHour() {
 	var file2: File = File.documentsDirectory;
 	file2 = file2.resolvePath("spacebarlogT.txt");
 	var fileStream: FileStream = new FileStream();
@@ -516,12 +532,12 @@ function readHour(){
 	secondsElapsed = int(fileText);
 }
 
-function writeHour(){
-	currentTime = secondsElapsed + getTimer()/1000;
+function writeHour() {
+	currentTime = secondsElapsed + getTimer() / 1000;
 	var timeToPrint: int;
 	timeToPrint = int(currentTime);
 	//trace(timeToPrint);
-	
+
 	var file: File = File.documentsDirectory;
 	file = file.resolvePath("spacebarlogT.txt");
 	var stream: FileStream = new FileStream();
@@ -530,16 +546,16 @@ function writeHour(){
 	stream.close();
 }
 
-function handleTime(){
-	currentTime = secondsElapsed + getTimer()/1000;
-	
+function handleTime() {
+	currentTime = secondsElapsed + getTimer() / 1000;
+
 	var timeToCheck: int;
 	timeToCheck = int(currentTime);
-	if (timeToCheck > 300){
+	if (timeToCheck > 300) {
 		resetTime();
 	}
-	
-	if (spacePhone.currentFrame != 1){
+
+	if (spacePhone.currentFrame != 1) {
 		return;
 	}
 	var Thours: int;
@@ -550,44 +566,44 @@ function handleTime(){
 	Thours = 3;
 	Tminutes = 9;
 	Tseconds = 7;
-	
+
 	Tseconds += int(currentTime);
 	Tminutes += Tseconds / 60;
 	Tseconds %= 60;
-	
-	if (Thours < 10){
+
+	if (Thours < 10) {
 		hourString += "0";
 		hourString += String(Thours);
 		hourString += ":";
 	} else {
 		hourString += String(Thours);
 		hourString += ":";
-	}	
-	if (Tminutes < 10){
+	}
+	if (Tminutes < 10) {
 		hourString += "0";
 		hourString += String(Tminutes);
 		hourString += ":";
 	} else {
 		hourString += String(Tminutes);
 		hourString += ":";
-	}	
-	if (Tseconds < 10){
+	}
+	if (Tseconds < 10) {
 		hourString += "0";
 		hourString += String(Tseconds);
 	} else {
 		hourString += String(Tseconds);
 	}
-	
-	if (spacePhone.currentFrame == 1){
+
+	if (spacePhone.currentFrame == 1) {
 		spacePhone.hourPlace.currentHour.text = hourString;
 	}
 	//trace(hourString);
 }
 
-function checkIntro(){
+function checkIntro() {
 	var reset: int;
 	reset = 1;
-	
+
 	var file2: File = File.documentsDirectory;
 	file2 = file2.resolvePath("spacebarlogS.txt");
 	var fileStream: FileStream = new FileStream();
@@ -595,35 +611,35 @@ function checkIntro(){
 	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
 	fileStream.close();
 	reset = int(fileText);
-	
-	if (reset == 2){
+
+	if (reset == 2) {
 		resetAnim.gotoAndPlay(2);
 		partyAnim.gotoAndStop(597);
 		outroAnim.gotoAndStop(711);
-	
+
 		var file: File = File.documentsDirectory;
 		file = file.resolvePath("spacebarlogS.txt");
 		var stream: FileStream = new FileStream();
 		stream.open(file, FileMode.WRITE);
 		stream.writeUTFBytes("1");
 		stream.close();
-	} else if (reset == 0){
+	} else if (reset == 0) {
 		partyAnim.gotoAndPlay(2);
 		resetAnim.gotoAndStop(76);
 		outroAnim.gotoAndStop(711);
-	
+
 		var file5: File = File.documentsDirectory;
 		file5 = file5.resolvePath("spacebarlogS.txt");
 		var stream5: FileStream = new FileStream();
 		stream5.open(file5, FileMode.WRITE);
 		stream5.writeUTFBytes("1");
 		stream5.close();
-	} else if (reset == 3){
+	} else if (reset == 3) {
 		partyAnim.gotoAndStop(597);
 		resetAnim.gotoAndStop(76);
 		outroAnim.gotoAndPlay(2);
 	} else {
-		if (reset == 1){
+		if (reset == 1) {
 			resetAnim.gotoAndStop(76);
 			partyAnim.gotoAndStop(597);
 			outroAnim.gotoAndStop(711);
@@ -631,13 +647,13 @@ function checkIntro(){
 	}
 }
 
-function printPosition(){
+function printPosition() {
 	var posToPrint: String;
 	posToPrint = "";
-	posToPrint += int(spacebg.x/parallax*(-1));
+	posToPrint += int(spacebg.x / parallax * (-1));
 	posToPrint += "\n";
-	posToPrint += int(spacebg.y/parallax*(-1));
-	
+	posToPrint += int(spacebg.y / parallax * (-1));
+
 	var file: File = File.documentsDirectory;
 	file = file.resolvePath("spacebarlogL.txt");
 	var stream: FileStream = new FileStream();
@@ -646,7 +662,7 @@ function printPosition(){
 	stream.close();
 }
 
-function setPosition(){
+function setPosition() {
 	var modX: int;
 	var modY: int;
 	modX = 0;
@@ -659,10 +675,10 @@ function setPosition(){
 	var myArrayOfLines: Array = fileText.split(/\n/);
 	modX = int(myArrayOfLines[0]);
 	modY = int(myArrayOfLines[1]);
-	modifyPosition(modX*(-1), modY*(-1));
+	modifyPosition(modX * (-1), modY * (-1));
 }
 
-function modifyPosition(toX: int, toY: int){
+function modifyPosition(toX: int, toY: int) {
 	//trace(toX, toY);
 	spacebg.x += toX * parallax;
 	spacebg.y += toY * parallax;
@@ -676,4 +692,220 @@ function modifyPosition(toX: int, toY: int){
 	spacegad.y += toY;
 	spacebh.x += toX * parallax;
 	spacebh.y += toY * parallax;
+}
+
+function readCountDLC() {
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCL.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	var dlcNo: int;
+	dlcNo = int(myArrayOfLines[0]);
+	countDLC = dlcNo;
+	return dlcNo;
+}
+
+function readDetailsDLC(whichfile: int) {
+	if (whichfile > countDLC) {
+		return ["", "", "", "", "", ""];
+	}
+	var pathString: String;
+	pathString = "spacebarlogDLCT";
+	pathString += String(whichfile);
+	pathString += ".txt";
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath(pathString);
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	return myArrayOfLines;
+}
+
+function enableMiniGame() {
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCL.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	var dlcNo: int;
+	dlcNo = int(myArrayOfLines[0]);
+	var i: int = 1;
+	while (i <= dlcNo*2) {
+		var currentDLC: String;
+		currentDLC = String(myArrayOfLines[i]);
+		//trace(currentDLC.length);
+		currentDLC = currentDLC.slice(0, 6);
+		//trace(currentDLC);
+		if (currentDLC == "WARPER" && String(myArrayOfLines[i]).length == 7) {
+			return int(myArrayOfLines[i + 1]);
+		}
+		i = i + 2;
+	}
+	return 0;
+}
+
+function handleMiniGame() {
+	if (spacePhone.currentFrame != 7) {
+		return;
+	}
+	if (miniGameEnabled == 0) {
+		spacePhone.spacegamefull.visible = false;
+		return;
+	}
+	spacePhone.spacegamefull.visible = true;
+	var gameCenterX: int;
+	var gameCenterY: int;
+	gameCenterX = spacePhone.x + spacePhone.spacegamefull.x;
+	gameCenterY = spacePhone.y + spacePhone.spacegamefull.y;
+	var moveScale: Number;
+	moveScale = 0.7;
+	var bubbleSpeed: Number;
+	bubbleSpeed = 5;
+	var bulletSpeed: Number;
+	bulletSpeed = 4;
+	spacePhone.spacegamefull.gamespaceshiper.x = (mouseX - gameCenterX) * moveScale;
+	spacePhone.spacegamefull.gamespaceshiper.y = (mouseY - gameCenterY) * moveScale;
+	if (spacePhone.spacegamefull.gamebubleL.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleL.y -= bubbleSpeed;
+	}
+	if (spacePhone.spacegamefull.gamebubleR.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleR.y -= bubbleSpeed;
+	}
+	if (spacePhone.spacegamefull.gamebubleL.y <= -185) {
+		spacePhone.spacegamefull.gamebubleL.gotoAndStop(21);
+		spacePhone.spacegamefull.gamebubleL.y = -2000;
+	}
+	if (spacePhone.spacegamefull.gamebubleR.y <= -185) {
+		spacePhone.spacegamefull.gamebubleR.gotoAndStop(21);
+		spacePhone.spacegamefull.gamebubleR.y = -2000;
+	}
+	spacePhone.spacegamefull.gamebullet1.y += bulletSpeed;
+	spacePhone.spacegamefull.gamebullet2.y += bulletSpeed;
+	spacePhone.spacegamefull.gamebullet3.y += bulletSpeed;
+	if (spacePhone.spacegamefull.gamebullet1.y >= downLimit) {
+		spacePhone.spacegamefull.gamebullet1.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet1.x = -100 + int(Math.random() * 200)
+		downLimit = 180 + int(Math.random() * 150);
+	}
+	if (spacePhone.spacegamefull.gamebullet2.y >= downLimit) {
+		spacePhone.spacegamefull.gamebullet2.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet2.x = -100 + int(Math.random() * 200)
+		downLimit = 180 + int(Math.random() * 150);
+	}
+	if (spacePhone.spacegamefull.gamebullet3.y >= downLimit) {
+		spacePhone.spacegamefull.gamebullet3.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet3.x = -100 + int(Math.random() * 200)
+		downLimit = 180 + int(Math.random() * 150);
+	}
+
+	var collX: int = 10;
+	var collY: int = 10;
+
+	var dl1x: int, dl1y: int;
+	var dl2x: int, dl2y: int;
+	var dl3x: int, dl3y: int;
+	var dr1x: int, dr1y: int;
+	var dr2x: int, dr2y: int;
+	var dr3x: int, dr3y: int;
+
+	dl1x = Math.abs(spacePhone.spacegamefull.gamebullet1.x - spacePhone.spacegamefull.gamebubleL.x);
+	dl2x = Math.abs(spacePhone.spacegamefull.gamebullet2.x - spacePhone.spacegamefull.gamebubleL.x);
+	dl3x = Math.abs(spacePhone.spacegamefull.gamebullet3.x - spacePhone.spacegamefull.gamebubleL.x);
+	dr1x = Math.abs(spacePhone.spacegamefull.gamebullet1.x - spacePhone.spacegamefull.gamebubleR.x);
+	dr2x = Math.abs(spacePhone.spacegamefull.gamebullet2.x - spacePhone.spacegamefull.gamebubleR.x);
+	dr3x = Math.abs(spacePhone.spacegamefull.gamebullet3.x - spacePhone.spacegamefull.gamebubleR.x);
+	dl1y = Math.abs(spacePhone.spacegamefull.gamebullet1.y - spacePhone.spacegamefull.gamebubleL.y);
+	dl2y = Math.abs(spacePhone.spacegamefull.gamebullet2.y - spacePhone.spacegamefull.gamebubleL.y);
+	dl3y = Math.abs(spacePhone.spacegamefull.gamebullet3.y - spacePhone.spacegamefull.gamebubleL.y);
+	dr1y = Math.abs(spacePhone.spacegamefull.gamebullet1.y - spacePhone.spacegamefull.gamebubleR.y);
+	dr2y = Math.abs(spacePhone.spacegamefull.gamebullet2.y - spacePhone.spacegamefull.gamebubleR.y);
+	dr3y = Math.abs(spacePhone.spacegamefull.gamebullet3.y - spacePhone.spacegamefull.gamebubleR.y);
+
+	if (dl1x < collX && dl1y <= collY && spacePhone.spacegamefull.gamebubleL.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleL.gotoAndPlay(13);
+		spacePhone.spacegamefull.gamebullet1.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet1.x = -100 + int(Math.random() * 200);
+		currentScore += 1;
+	}
+	if (dl2x < collX && dl2y <= collY && spacePhone.spacegamefull.gamebubleL.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleL.gotoAndPlay(13);
+		spacePhone.spacegamefull.gamebullet2.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet2.x = -100 + int(Math.random() * 200);
+		currentScore += 1;
+	}
+	if (dl3x < collX && dl3y <= collY && spacePhone.spacegamefull.gamebubleL.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleL.gotoAndPlay(13);
+		spacePhone.spacegamefull.gamebullet3.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet3.x = -100 + int(Math.random() * 200);
+		currentScore += 1;
+	}
+	if (dr1x < collX && dr1y <= collY && spacePhone.spacegamefull.gamebubleR.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleR.gotoAndPlay(13);
+		spacePhone.spacegamefull.gamebullet1.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet1.x = -100 + int(Math.random() * 200);
+		currentScore += 1;
+	}
+	if (dr2x < collX && dr2y <= collY && spacePhone.spacegamefull.gamebubleR.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleR.gotoAndPlay(13);
+		spacePhone.spacegamefull.gamebullet2.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet2.x = -100 + int(Math.random() * 200);
+	}
+	if (dr3x < collX && dr3y <= collY && spacePhone.spacegamefull.gamebubleR.currentFrame == 1) {
+		spacePhone.spacegamefull.gamebubleR.gotoAndPlay(13);
+		spacePhone.spacegamefull.gamebullet3.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet3.x = -100 + int(Math.random() * 200);
+		currentScore += 1;
+	}
+
+	
+	var db1x: int, db1y: int;
+	var db2x: int, db2y: int;
+	var db3x: int, db3y: int;
+	var colS: int = 25;
+	db1x = Math.abs(spacePhone.spacegamefull.gamebullet1.x - spacePhone.spacegamefull.gamespaceshiper.x);
+	db2x = Math.abs(spacePhone.spacegamefull.gamebullet2.x - spacePhone.spacegamefull.gamespaceshiper.x);
+	db3x = Math.abs(spacePhone.spacegamefull.gamebullet3.x - spacePhone.spacegamefull.gamespaceshiper.x);
+	db1y = Math.abs(spacePhone.spacegamefull.gamebullet1.y - spacePhone.spacegamefull.gamespaceshiper.y);
+	db2y = Math.abs(spacePhone.spacegamefull.gamebullet2.y - spacePhone.spacegamefull.gamespaceshiper.y);
+	db3y = Math.abs(spacePhone.spacegamefull.gamebullet3.y - spacePhone.spacegamefull.gamespaceshiper.y);
+	
+	if (db1x < colS && db1y <= colS){
+		currentScore = int(currentScore/10);
+		spacePhone.spacegamefull.gamebullet1.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet2.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet3.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamespaceshiper.gotoAndPlay(2);
+	}	
+	if (db2x < colS && db2y <= colS){
+		currentScore = int(currentScore/10);
+		spacePhone.spacegamefull.gamebullet1.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet2.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet3.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamespaceshiper.gotoAndPlay(2);
+	}	
+	if (db3x < colS && db3y <= colS){
+		currentScore = int(currentScore/10);
+		spacePhone.spacegamefull.gamebullet1.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet2.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamebullet3.y = -200 - int(Math.random() * 100);
+		spacePhone.spacegamefull.gamespaceshiper.gotoAndPlay(2);
+	}
+
+	var fullScore: String;
+	if (currentScore < 10){
+		fullScore = "0000" + String(currentScore); 
+	} else if (currentScore < 100){
+		fullScore = "000" + String(currentScore); 
+	} else if (currentScore < 1000){
+		fullScore = "00" + String(currentScore); 
+	} else if (currentScore < 10000){
+		fullScore = "0" + String(currentScore); 
+	} else {
+		fullScore = String(currentScore); 
+	}
+	spacePhone.spacegamefull.gamescore.text = "Score: " + fullScore;
 }
