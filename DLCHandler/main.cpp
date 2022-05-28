@@ -299,12 +299,11 @@ void generatePlanets(int numberOfDLCs, int startingID) {
 void moveXML(int numberOfDLCs)
 {
     std::string destinationPath, planetPath, sourcePath;
-    destinationPath = "..\\..\\Radio planet\\tcp-planet\\Resources\\resourcesradio\\ArtifactD.xml";
+    destinationPath = "..\\..\\Resources\\resourcesradio\\ArtifactD.xml";
     for (int i = 1; i <= numberOfDLCs; ++i) {
         if (authorizedDLC[i]) {
             planetPath = getPlanetPath(DLC_FOLDER_PATH, i);
             sourcePath = planetPath + "\\ArtifactD.xml";
-            std::cout << sourcePath << "\n" << destinationPath << "\n\n";
             if (!CopyFileA(sourcePath.c_str(), destinationPath.c_str(), FALSE) ) {
                 perror("Could not copy XML");
             }
