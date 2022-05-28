@@ -1,0 +1,151 @@
+1) DLC Planet Graphic Loader for the travel
+
+function loadDLC1(){
+	var file: File = File.documentsDirectory;
+	file = file.resolvePath("spacebarlogDLCD1.txt");
+	var fileStream: FileStream = new FileStream();
+	fileStream.open(file, FileMode.READ);
+	var fileText: String = fileStream.readUTFBytes(fileStream.bytesAvailable);
+	var myArrayOfLines: Array = fileText.split(/\n/);
+	dlc1name = String(myArrayOfLines[0]).slice(0, -1);
+	var picturePath: String;
+	picturePath = String(myArrayOfLines[3]).slice(0, -1);
+	dlc1x = int(myArrayOfLines[2].split(' ')[0]);
+	dlc1y = int(myArrayOfLines[2].split(' ')[1]);
+	var loader:Loader = new Loader();
+	loader.load(new URLRequest(picturePath));
+	newPlanet1.addChild(loader);
+	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+	function loaderComplete(e:Event):void {
+		loader.content.x = loader.width/(-2);
+		loader.content.y = loader.height/(-2);
+	}
+	dlc1id = int(myArrayOfLines[1]);
+	newPlanet1.visible = true;
+	newPlanet1.x = dlc1x + 1000;
+	newPlanet1.y = dlc1y;
+}
+
+
+
+2) DLC Handler Manager
+
+
+std::string getSignatureFilePath(char *path, int position) {
+    struct dirent *entry;
+    DIR *dp;
+
+    dp = opendir(path);
+    if (dp == nullptr) {
+        perror("opendir: Path does not exist or could not be read.");
+        return "";
+    }
+
+    std::string toReturn;
+    int numberOfFolder = -1;
+    while ((entry = readdir(dp))) {
+        if (numberOfFolder == position) {
+            toReturn = path;
+            std::string folderName = entry->d_name;
+            toReturn += "\\" + folderName + "\\signature.sbdlc";
+            break;
+        }
+        ++numberOfFolder;
+    }
+
+    closedir(dp);
+    return toReturn;
+}
+
+int checkDLCs() {
+    std::string signatureFilePath, readSignature;
+    int numberOfFolders = getNumberOfDLCs();
+    int realNumber = 0;
+    for (int i = 1; i <= numberOfFolders; ++i) {
+        signatureFilePath = getSignatureFilePath(DLC_FOLDER_PATH, i);
+
+        if (signatureFilePath.empty()) {
+            authorizedDLC[i] = false;
+            continue;
+        }
+
+        std::ifstream fin(signatureFilePath);
+        std::getline(fin, readSignature);
+        fin.close();
+
+        if (readSignature != SIGNATURE) {
+            authorizedDLC[i] = false;
+            continue;
+        }
+        authorizedDLC[i] = true;
+        ++realNumber;
+    }
+    return realNumber;
+}
+
+std::string getDetailFilePath(char *path, int position) {
+    struct dirent *entry;
+    DIR *dp;
+
+    dp = opendir(path);
+    if (dp == nullptr) {
+        perror("opendir: Path does not exist or could not be read.");
+        return "";
+    }
+
+    std::string toReturn;
+    int numberOfFolder = -1;
+    while ((entry = readdir(dp))) {
+        if (numberOfFolder == position) {
+            toReturn = path;
+            std::string folderName = entry->d_name;
+            toReturn += "\\" + folderName + "\\DLCDescription.sbdlc";
+            break;
+        }
+        ++numberOfFolder;
+    }
+
+    closedir(dp);
+    return toReturn;
+}
+
+3) Fishing Game Collision
+def place_all_obstacles():
+    global obstacle_list
+    i = 0
+    while i < len(obstacle_list):
+        state = obstacle_list[i][0]
+        if state == 0:
+            coords_copy = (obstacle_list[i][1][1][0] + 28, obstacle_list[i][1][1][1])
+            obstacle, coords = obstacle_list[i][1]
+            screen.blit(obstacle, coords)
+            del obstacle_list[i]
+            x, y = screen.get_size()
+            if coords_copy[0] <= x + 200:
+                obstacle_list.insert(i, (state, (obstacle, coords_copy)))
+            else:
+                i -= 1
+        else:
+            coords_copy = (obstacle_list[i][1][1][0] - 28, obstacle_list[i][1][1][1])
+            obstacle, coords = obstacle_list[i][1]
+            screen.blit(obstacle, coords)
+            del obstacle_list[i]
+            if coords_copy[0] > -200:
+                obstacle_list.insert(i, (state, (obstacle, coords_copy)))
+            else:
+                i -= 1
+        i += 1
+
+
+def check_obstacle_hitting(mousex, mousey):
+    global obstacle_list, caught
+    if caught:
+        x, y = screen.get_size()
+        i = 0
+        while i < len(obstacle_list):
+            obstacle, coords = obstacle_list[i][1]
+            if ceil(0.43 * x) - 80 <= coords[0] <= ceil(0.43 * x) + 80 and mousey - 80 <= coords[1] <= mousey + 80:
+                del obstacle_list[i]
+                i -= 1
+                caught = False
+            i += 1

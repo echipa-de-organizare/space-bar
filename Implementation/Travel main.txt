@@ -751,7 +751,7 @@ function setPosition() {
 }
 
 function modifyPosition(toX: int, toY: int) {
-	trace(toX, toY);
+	//trace(toX, toY);
 	spacebg.x += toX * parallax;
 	spacebg.y += toY * parallax;
 	spacebar.x += toX;
@@ -1024,12 +1024,12 @@ function loadDLC1(){
 	newPlanet1.addChild(loader);
 	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
 	function loaderComplete(e:Event):void {
-		loader.content.x = loader.width/2;
+		loader.content.x = loader.width/(-2);
 		loader.content.y = loader.height/(-2);
 	}
 	dlc1id = int(myArrayOfLines[1]);
 	newPlanet1.visible = true;
-	newPlanet1.x = dlc1x;
+	newPlanet1.x = dlc1x + 1000;
 	newPlanet1.y = dlc1y;
 }
 
@@ -1050,12 +1050,12 @@ function loadDLC2(){
 	newPlanet2.addChild(loader);
 	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
 	function loaderComplete(e:Event):void {
-		loader.content.x = loader.width/2;
+		loader.content.x = loader.width/(-2);
 		loader.content.y = loader.height/(-2);
 	}
 	dlc2id = int(myArrayOfLines[1]);
 	newPlanet2.visible = true;
-	newPlanet2.x = dlc1x;
+	newPlanet2.x = dlc1x + 1000;
 	newPlanet2.y = dlc1y;
 }
 
@@ -1076,7 +1076,7 @@ function loadDLC3(){
 	newPlanet3.addChild(loader);
 	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
 	function loaderComplete(e:Event):void {
-		loader.content.x = loader.width/2;
+		loader.content.x = loader.width/(-2);
 		loader.content.y = loader.height/(-2);
 	}
 	dlc3id = int(myArrayOfLines[1]);
@@ -1102,7 +1102,7 @@ function loadDLC4(){
 	newPlanet4.addChild(loader);
 	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
 	function loaderComplete(e:Event):void {
-		loader.content.x = loader.width/2;
+		loader.content.x = loader.width/(-2);
 		loader.content.y = loader.height/(-2);
 	}
 	dlc4id = int(myArrayOfLines[1]);
@@ -1128,7 +1128,7 @@ function loadDLC5(){
 	newPlanet5.addChild(loader);
 	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
 	function loaderComplete(e:Event):void {
-		loader.content.x = loader.width/2;
+		loader.content.x = loader.width/(-2);
 		loader.content.y = loader.height/(-2);
 	}
 	dlc5id = int(myArrayOfLines[1]);
