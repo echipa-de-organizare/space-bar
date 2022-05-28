@@ -25,6 +25,7 @@ Inside a DLC package you can find the following assets:
   •  A new planet to find in space, with new coordinates and graphics, provided in the DLC
   •  A whole new quest, presented as an executable, with new adventures
   •  A reward, such as a minigame you can play on your phone, which can only be accessed after finishing the quest.
+You can see the list of installed DLCs in the help menu on your phone.
 
 --
 
