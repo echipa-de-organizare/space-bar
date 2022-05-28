@@ -147,6 +147,32 @@ std::string getPlanetPath(char *path, int position) {
     return toReturn;
 }
 
+std::string getPlanetPathRelativeToRoot(char *path, int position) {
+    struct dirent *entry;
+    DIR *dp;
+
+    dp = opendir(path);
+    if (dp == nullptr) {
+        perror("opendir: Path does not exist or could not be read.");
+        return "";
+    }
+
+    std::string toReturn;
+    int numberOfFolder = -1;
+    while ((entry = readdir(dp))) {
+        if (numberOfFolder == position) {
+            toReturn = ".\\DLCs";
+            std::string folderName = entry->d_name;
+            toReturn += "\\" + folderName + "\\Planet";
+            break;
+        }
+        ++numberOfFolder;
+    }
+
+    closedir(dp);
+    return toReturn;
+}
+
 void copyDLCDetails(int numberOfDLCs) {
     std::string detailFilePath, spacebarlogDLCT;
     for (int i = 1; i <= numberOfDLCs; ++i) {
@@ -273,7 +299,7 @@ void generatePlanets(int numberOfDLCs, int startingID) {
 
 
             planetIconPath = planetPath + "\\" + planetName + ".png";
-            planetExePath = planetPath + "\\" + planetName + ".exe";
+            planetExePath = getPlanetPathRelativeToRoot(DLC_FOLDER_PATH, i) + "\\" + planetName + ".exe";
 
             std::ofstream fout(spacebarlogDLCD);
             fout << planetName << "\n";
