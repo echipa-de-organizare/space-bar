@@ -42,14 +42,29 @@ def place_bait(mousex, mousey):
 
 fish_lr_paths = ["Resources/resourcesnewplanetjob/fishlr1.png"]
 fish_rl_paths = ["Resources/resourcesnewplanetjob/fishrl1.png"]
+obstacle_paths = ["Resources/resourcesnewplanetjob/papuc.png"]
+
+
+def place_fish_on_rod(mousex, mousey):
+    caught = pygame.image.load("Resources/resourcesnewplanetjob/caught.png")
+    x, y = screen.get_size()
+    caught = pygame.transform.scale(caught, (ceil(0.7 * caught.get_size()[0]), ceil(0.7 * caught.get_size()[1])))
+    return screen.blit(caught, (ceil(0.4165 * x), mousey + 80))
+
+
+def place_obstacle(x_pos, y_pos):
+    obstacle = pygame.image.load(random.choice(obstacle_paths))
+    x, y = screen.get_size()
+    obstacle = pygame.transform.scale(obstacle,
+                                      (ceil(0.9 * obstacle.get_size()[0]), ceil(0.9 * obstacle.get_size()[1])))
+    screen.blit(obstacle, (x_pos, y_pos))
+    return obstacle, (x_pos, y_pos)
 
 
 def place_fish_lr(x_pos, y_pos):
     fish = pygame.image.load(random.choice(fish_lr_paths))
     x, y = screen.get_size()
     fish = pygame.transform.scale(fish, (ceil(0.9 * fish.get_size()[0]), ceil(0.9 * fish.get_size()[1])))
-    # surface = pygame.Surface(fish.get_size())
-    # surface.blit(fish, (0, 0))
     screen.blit(fish, (x_pos, y_pos))
     return fish, (x_pos, y_pos)
 
@@ -58,13 +73,12 @@ def place_fish_rl(x_pos, y_pos):
     fish = pygame.image.load(random.choice(fish_rl_paths))
     x, y = screen.get_size()
     fish = pygame.transform.scale(fish, (ceil(0.8 * fish.get_size()[0]), ceil(0.8 * fish.get_size()[1])))
-    # surface = pygame.Surface(fish.get_size())
-    # surface.blit(fish, (0, 0))
     screen.blit(fish, (x_pos, y_pos))
     return fish, (x_pos, y_pos)
 
 
 fish_list = []
+obstacle_list = []
 
 
 def place_all_fish():
@@ -117,6 +131,17 @@ def write_location():
         f.write("0\n0")
 
 
+cash = 0
+
+
+def gimme_my_cash():
+    pygame.font.init()
+    font = pygame.font.SysFont("Trebuchet MS", 25)
+    cash_text = font.render("Cash: " + str(cash), True, BLACK)
+    placement = (100, 100)
+    screen.blit(cash_text, placement)
+
+
 # background space music
 # todo: uncomment bgmusic
 # background_music = pygame.mixer.Channel(0)
@@ -131,18 +156,70 @@ clock = pygame.time.Clock()
 video_size = (ceil(0.5 * x), ceil(0.5 * y))
 video_placement = (ceil(0.24 * x), ceil(0.15 * y))
 
+caught = False
+
 
 def check_fish_caught(mousex, mousey):
     x, y = screen.get_size()
-    global fish_list
+    global fish_list, caught, cash
     i = 0
     while i < len(fish_list):
         fish, coords = fish_list[i][1]
-        if ceil(0.43 * x) - 100 <= coords[0] <= ceil(0.43 * x) + 100 and mousey - 100 <= coords[1] <= mousey + 100:
+        if not caught and ceil(0.43 * x) - 60 <= coords[0] <= ceil(0.43 * x) + 60 and mousey - 60 <= coords[
+            1] <= mousey + 60:
             # if abs(coords[0] - ceil(0.43 * x)) <= 250 and abs(coords[1] - mousey) <= 250:
             del fish_list[i]
             i -= 1
+            caught = True
         i += 1
+
+
+def check_caught_fish_up(mousex, mousey):
+    global cash, caught
+    if caught and mousey <= 60:
+        caught = False
+        cash += 20
+
+
+def place_all_obstacles():
+    global obstacle_list
+    i = 0
+    while i < len(obstacle_list):
+        state = obstacle_list[i][0]
+        if state == 0:
+            coords_copy = (obstacle_list[i][1][1][0] + 28, obstacle_list[i][1][1][1])
+            obstacle, coords = obstacle_list[i][1]
+            screen.blit(obstacle, coords)
+            del obstacle_list[i]
+            x, y = screen.get_size()
+            if coords_copy[0] <= x + 200:
+                obstacle_list.insert(i, (state, (obstacle, coords_copy)))
+            else:
+                i -= 1
+        else:
+            coords_copy = (obstacle_list[i][1][1][0] - 28, obstacle_list[i][1][1][1])
+            obstacle, coords = obstacle_list[i][1]
+            screen.blit(obstacle, coords)
+            del obstacle_list[i]
+            if coords_copy[0] > -200:
+                obstacle_list.insert(i, (state, (obstacle, coords_copy)))
+            else:
+                i -= 1
+        i += 1
+
+
+def check_obstacle_hitting(mousex, mousey):
+    global obstacle_list, caught
+    if caught:
+        x, y = screen.get_size()
+        i = 0
+        while i < len(obstacle_list):
+            obstacle, coords = obstacle_list[i][1]
+            if ceil(0.43 * x) - 80 <= coords[0] <= ceil(0.43 * x) + 80 and mousey - 80 <= coords[1] <= mousey + 80:
+                del obstacle_list[i]
+                i -= 1
+                caught = False
+            i += 1
 
 
 if __name__ == '__main__':
@@ -158,6 +235,9 @@ if __name__ == '__main__':
     WON = pygame.USEREVENT + 3
 
     PLACE_FISH = pygame.USEREVENT + 4
+    CHECK_CAUGHT = pygame.USEREVENT + 5
+
+    pygame.time.set_timer(CHECK_CAUGHT, 100)
     pygame.time.set_timer(PLACE_FISH, 1500)
 
     local_start = timeit.default_timer()
@@ -169,14 +249,23 @@ if __name__ == '__main__':
         place_bg()
         place_line(mousex, mousey)
         place_bait(mousex, mousey)
+        if caught:
+            place_fish_on_rod(mousex, mousey)
         place_all_fish()
-        # draw_clock()
+        place_all_obstacles()
+        gimme_my_cash()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEMOTION:
                 mousex, mousey = pygame.mouse.get_pos()
                 check_fish_caught(mousex, mousey)
+                check_obstacle_hitting(mousex, mousey)
+            if event.type == CHECK_CAUGHT:
+                mousex, mousey = pygame.mouse.get_pos()
+                check_fish_caught(mousex, mousey)
+                check_caught_fish_up(mousex, mousey)
+                check_obstacle_hitting(mousex, mousey)
             if event.type == WON:
                 # todo: uncomment music
                 # background_music.stop()
@@ -187,10 +276,15 @@ if __name__ == '__main__':
                 break
             if event.type == PLACE_FISH:
                 x, y = screen.get_size()
-                if random.random() < 0.5:
+                r = random.random()
+                if r < 0.30:
                     fish_list.append((0, place_fish_lr(-200, random.randint(ceil(0.2 * y), ceil(0.9 * y)))))
-                else:
+                elif r < 0.60:
                     fish_list.append((1, place_fish_rl(x + 200, random.randint(ceil(0.2 * y), ceil(0.9 * y)))))
+                elif r < 0.80:
+                    obstacle_list.append((0, place_obstacle(-200, random.randint(ceil(0.2 * y), ceil(0.9 * y)))))
+                else:
+                    obstacle_list.append((1, place_obstacle(x + 200, random.randint(ceil(0.2 * y), ceil(0.9 * y)))))
             if event.type == pygame.KEYDOWN:
                 pass
         if running:
