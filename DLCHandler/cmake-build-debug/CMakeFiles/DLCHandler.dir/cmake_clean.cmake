@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/DLCHandler.dir/main.cpp.obj"
-  "CMakeFiles/DLCHandler.dir/main.cpp.obj.d"
   "DLCHandler.exe"
   "DLCHandler.exe.manifest"
   "DLCHandler.pdb"
