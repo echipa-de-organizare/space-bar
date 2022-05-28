@@ -306,8 +306,14 @@ void moveXML(int numberOfDLCs)
             sourcePath = planetPath + "\\ArtifactD.xml";
             if (!CopyFileA(sourcePath.c_str(), destinationPath.c_str(), FALSE) ) {
                 perror("Could not copy XML");
+            } else {
+                return;
             }
         }
+    }
+    sourcePath = "..\\..\\Resources\\resourcesradio\\MainGameXML\\ArtifactD.xml";
+    if (!CopyFileA(sourcePath.c_str(), destinationPath.c_str(), FALSE) ) {
+        perror("Could not copy original XML");
     }
 }
 
