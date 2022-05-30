@@ -1,0 +1,5 @@
+WARPER
+7
+0 -4000
+C:\Users\flanco\Documents\WARPER.png
+..\..\DLCs\WARPER\Planet\WARPER.exe

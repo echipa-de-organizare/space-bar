@@ -1,0 +1,5 @@
+DemoPlanet
+8
+0 4000
+C:\Users\flanco\Documents\DemoPlanet.png
+..\..\DLCs\xtraContent\Planet\DemoPlanet.exe
